@@ -6,14 +6,15 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/06 23:18:01 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/07 00:26:13 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #define NO_COUNT	0
 
@@ -29,6 +30,7 @@ typedef struct s_common
 
 typedef struct s_fork {
 	pthread_mutex_t	lock;
+	int 			catched;
 	int				last_eat_id;
 } t_fork;
 

@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/06 23:26:51 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/07 00:37:52 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,39 @@ void *func(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&(philo->common->test));
-	print_init(philo);
-	printf("\n\n");
-	pthread_mutex_unlock(&(philo->common->test));
+	// pthread_mutex_lock(&(philo->common->test));
+	// print_init(philo);
+	// pthread_mutex_unlock(&(philo->common->test));
+	while (philo->eat_count < philo->common->must_eat_count && !philo->common->someone_died)
+	{
+		if (philo->left_fork->last_eat_id != philo->id && philo->left_fork->catched == -1)
+		{
+			pthread_mutex_lock(&(philo->left_fork->lock));
+			printf("philo_id=%d catched left\n", philo->id);
+			philo->left_fork->catched = philo->id;
+			pthread_mutex_unlock(&(philo->left_fork->lock));
+		}
+		if (philo->right_fork->last_eat_id != philo->id && philo->right_fork->catched == -1)
+		{
+			pthread_mutex_lock(&(philo->right_fork->lock));
+			printf("philo_id=%d catched right\n", philo->id);
+			philo->right_fork->catched = philo->id;
+			pthread_mutex_unlock(&(philo->right_fork->lock));
+		}
+		if (philo->right_fork->catched == philo->id && philo->left_fork->catched == philo->id)
+		{
+			pthread_mutex_lock(&(philo->left_fork->lock));
+			pthread_mutex_lock(&(philo->right_fork->lock));
+			printf("philo_id=%d eat\n", philo->id);
+			philo->left_fork->catched = -1;
+			philo->left_fork->last_eat_id = philo->id;
+			philo->right_fork->catched = -1;
+			philo->right_fork->last_eat_id = philo->id;
+			philo->eat_count++;
+			pthread_mutex_unlock(&(philo->left_fork->lock));
+			pthread_mutex_unlock(&(philo->right_fork->lock));
+		}
+	}
 	return (arg);
 }
 

@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/06 23:19:16 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/07 00:19:31 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_fork *init_forks(int philo_count)
 	{
 		pthread_mutex_init(&(fork_array[i].lock), NULL);
 		fork_array[i].last_eat_id = last_ead_id_array[i];
+		fork_array[i].catched = -1;
 		i++;
 	}
 	free(last_ead_id_array);
@@ -79,6 +80,7 @@ void	print_init(t_philo *philo)
 	printf("eat_count=%d;\n", philo->eat_count);
 	printf("right_fork.last_eat_id=%d;\n", philo->right_fork->last_eat_id);
 	printf("left_fork.last_eat_id=%d;\n", philo->left_fork->last_eat_id);
+	printf("\n\n");
 }
 
 void print_init_array(t_philo *philos, int philo_count)
@@ -89,7 +91,6 @@ void print_init_array(t_philo *philos, int philo_count)
 	while (i < philo_count)
 	{
 		print_init(&(philos[i]));
-		printf("\n\n");
 		i++;
 	}
 }

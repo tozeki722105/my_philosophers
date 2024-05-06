@@ -6,14 +6,14 @@
 #    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/06 23:26:16 by toshi            ###   ########.fr        #
+#    Updated: 2024/05/07 00:38:25 by toshi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
 CC			:=	cc -fsanitize=address
 # CFLAGS		:=	-Wall -Wextra -Werror 
-# PTHREAD_FLAGS	:=	-lpthread
+PTHREAD_FLAGS	:=	-lpthread
 SRC_PATHS	:=	./
 SRCS		:=	$(foreach path, $(SRC_PATHS), $(wildcard $(path)*.c))
 OUT_PATTERN	:=	
@@ -36,6 +36,6 @@ fclean: clean
 re: fclean all
 
 p:
-	./$(NAME) 5 600 300 200
+	./$(NAME) 5 600 300 300 4
 
 .PHONY: all clean fclean re
