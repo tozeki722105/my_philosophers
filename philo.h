@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/06 22:10:21 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/06 23:18:01 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 typedef struct s_common
 {
+	pthread_mutex_t test;
 	bool	someone_died;
 	int		die_time;
 	int		eat_time;
@@ -40,5 +41,11 @@ typedef struct s_philo
 	t_fork		*left_fork;
 } t_philo;
 
-void	init_label(int *forks_array, int len);
-int		*make_last_ead_id_array(int philo_count);
+void		init_label(int *forks_array, int len);
+int			*make_last_ead_id_array(int philo_count);
+
+t_common	init_common(int argc, char **argv);
+t_fork		*init_forks(int philo_count);
+t_philo		*init_philos(int philo_count, t_common *common, t_fork *forks);
+void	print_init(t_philo *philo);
+void print_init_array(t_philo *philos, int philo_count);
