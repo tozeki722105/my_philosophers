@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/07 00:19:31 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/07 16:48:09 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_philo *init_philos(int philo_count, t_common *common, t_fork *forks)
 	while (i < philo_count)
 	{
 		philo_array[i].common = common;
-		philo_array[i].id = i;
+		philo_array[i].id = i + 1;
 		philo_array[i].eat_count = 0;
 		if (i == 0)
 			philo_array[i].right_fork = &(forks[philo_count - 1]);

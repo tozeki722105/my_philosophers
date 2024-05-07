@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:55:05 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/06 20:27:04 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/07 16:50:18 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_label(int *forks_array, int len)
 		return ;
 	}
 	int i = 0;
-	int num = 1;
+	int num = 2;
 	if (len == 2)
 	{
 		forks_array[0] = num;
