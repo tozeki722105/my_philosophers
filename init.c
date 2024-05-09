@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/07 16:48:09 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/09 22:51:18 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ t_common init_common(int argc, char **argv)
 {
 	t_common common;
 
-	common.someone_died = false;
-	common.die_time = atoi(argv[2]); 
-	common.eat_time = atoi(argv[3]); 
-	common.sleep_time = atoi(argv[4]); 
+	common.die_time = atoi(argv[2]);
+	common.eat_time = atoi(argv[3]);
+	common.sleep_time = atoi(argv[4]);
 	if (argc == 6)
 		common.must_eat_count = atoi(argv[5]);
 	else
 		common.must_eat_count = NO_COUNT;
-	pthread_mutex_init((&common.test), NULL);
+	pthread_mutex_init((&common.someone_died_lock), NULL);
+	common.someone_died = false;
+	pthread_mutex_init((&common.eat_count_lock), NULL);
+	common.end_eat_count = 0;
+	common.common_start = 0;
 	return (common);
 }
 
@@ -41,7 +44,7 @@ t_fork *init_forks(int philo_count)
 	{
 		pthread_mutex_init(&(fork_array[i].lock), NULL);
 		fork_array[i].last_eat_id = last_ead_id_array[i];
-		fork_array[i].catched = -1;
+		fork_array[i].catched_id = NO_CATCHED;
 		i++;
 	}
 	free(last_ead_id_array);
@@ -60,6 +63,7 @@ t_philo *init_philos(int philo_count, t_common *common, t_fork *forks)
 		philo_array[i].common = common;
 		philo_array[i].id = i + 1;
 		philo_array[i].eat_count = 0;
+		philo_array[i].last_eat_time = 0;
 		if (i == 0)
 			philo_array[i].right_fork = &(forks[philo_count - 1]);
 		else

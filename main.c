@@ -6,55 +6,49 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/07 16:56:09 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/10 00:15:40 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// __attribute__((destructor))
+// static void destructor() {
+//    system("leaks -q philo");
+// }
+
 void *func(void *arg)
 {
 	t_philo *philo;
-	struct timeval  time;
-
+	t_common *common;
+	t_fork	*right_fork;
+	t_fork	*left_fork;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&(philo->common->test));
-	gettimeofday(&time, NULL);
-	printf("time=%d;\n", time.tv_usec);
-	print_init(philo);
-	pthread_mutex_unlock(&(philo->common->test));
-	// while (philo->eat_count < philo->common->must_eat_count && !philo->common->someone_died)
-	// {
-	// 	if (philo->left_fork->last_eat_id != philo->id && philo->left_fork->catched == -1)
-	// 	{
-	// 		pthread_mutex_lock(&(philo->left_fork->lock));
-	// 		printf("philo_id=%d catched left\n", philo->id);
-	// 		philo->left_fork->catched = philo->id;
-	// 		pthread_mutex_unlock(&(philo->left_fork->lock));
-	// 	}
-	// 	if (philo->right_fork->last_eat_id != philo->id && philo->right_fork->catched == -1)
-	// 	{
-	// 		pthread_mutex_lock(&(philo->right_fork->lock));
-	// 		printf("philo_id=%d catched right\n", philo->id);
-	// 		philo->right_fork->catched = philo->id;
-	// 		pthread_mutex_unlock(&(philo->right_fork->lock));
-	// 	}
-	// 	if (philo->right_fork->catched == philo->id && philo->left_fork->catched == philo->id)
-	// 	{
-	// 		pthread_mutex_lock(&(philo->left_fork->lock));
-	// 		pthread_mutex_lock(&(philo->right_fork->lock));
-	// 		printf("philo_id=%d eat\n", philo->id);
-	// 		philo->left_fork->catched = -1;
-	// 		philo->left_fork->last_eat_id = philo->id;
-	// 		philo->right_fork->catched = -1;
-	// 		philo->right_fork->last_eat_id = philo->id;
-	// 		philo->eat_count++;
-	// 		pthread_mutex_unlock(&(philo->left_fork->lock));
-	// 		pthread_mutex_unlock(&(philo->right_fork->lock));
-	// 	}
-	// }
-	return (arg);
+	common = philo->common;
+	left_fork = philo->left_fork;
+	right_fork = philo->right_fork;
+	philo->last_eat_time = common->common_start;
+	while (!is_dead(philo, common) && !common->someone_died \
+		&& philo->eat_count < common->must_eat_count)
+	{
+		if (left_fork->last_eat_id != philo->id && left_fork->catched_id == NO_CATCHED)
+			catch_fork_L(left_fork, common, philo);
+		if (right_fork->last_eat_id != philo->id && right_fork->catched_id == NO_CATCHED)
+			catch_fork_R(right_fork, common, philo);
+		if (left_fork->catched_id == philo->id && right_fork->catched_id == philo->id)
+		{
+			do_eat(philo, common);
+			release_fork(left_fork, philo);
+			release_fork(right_fork, philo);
+			do_sleep(philo, common);
+		}
+		// usleep(100);
+	}
+	if (philo->eat_count >= common->must_eat_count)
+		return (finish_full_ret_null(common));
+	return (finish_died_ret_null(common));
+	return (NULL);
 }
 
 int main (int argc, char **argv)
@@ -64,7 +58,6 @@ int main (int argc, char **argv)
 	t_fork		*forks;
 	t_philo		*philos;
 	pthread_t	*threads;
-	int		i;
 	
 	if (!(argc == 5 || argc == 6))
 		return (1);
@@ -73,18 +66,11 @@ int main (int argc, char **argv)
 	forks = init_forks(philo_count);
 	philos = init_philos(philo_count, &common, forks);
 	threads = (pthread_t *)malloc(philo_count * sizeof(pthread_t));
-	i = 0;
-	while (i < philo_count)
-	{
+	philos->common->common_start = get_time();
+	for (int i = 0; i < philo_count; i++)
 		pthread_create(&(threads[i]), NULL, func, (void *)&(philos[i]));
-		i++;
-	}
-	i = 0;
-	while (i < philo_count)
-	{
+	for (int i = 0; i < philo_count; i++)
 		pthread_join(threads[i], NULL);
-		i++;
-	}
 	free(threads);
 	free(forks);
 	free(philos);

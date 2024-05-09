@@ -6,7 +6,7 @@
 #    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/07 00:38:25 by toshi            ###   ########.fr        #
+#    Updated: 2024/05/10 00:30:02 by toshi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,6 @@ fclean: clean
 re: fclean all
 
 p:
-	./$(NAME) 5 600 300 300 4
+	./$(NAME) 5 600 195 5 5
 
 .PHONY: all clean fclean re
