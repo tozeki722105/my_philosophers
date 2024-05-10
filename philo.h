@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 10:55:59 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/10 14:00:12 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,11 @@
 #include <stdlib.h>
 
 #define NO_COUNT	0
-#define NO_CATCHED	0
+#define NO_CATCHED		0
+#define MILLISECONDS	1000
+#define LEFT		0
+#define RIGHT		1
 
-typedef enum e_status
-{
-	THINKING,
-	TAKE_FORK,
-	EATING,
-	SLEEPING,
-	DIED
-} t_status;
 
 typedef struct s_common
 {
@@ -72,12 +67,10 @@ void print_init_array(t_philo *philos, int philo_count);
 unsigned long	get_time();
 void	do_eat(t_philo *philo, t_common *common);
 void	do_sleep(t_philo *philo, t_common *common);
-void	catch_fork_R(t_fork *fork, t_common *common, t_philo *philo);
-void	catch_fork_L(t_fork *fork, t_common *common, t_philo *philo);
+void	catch_fork(t_fork *fork, t_common *common, t_philo *philo, int hand_flag);
 void	release_fork(t_fork *fork, t_philo *philo);
 void	eat_release_sleep(t_philo *philo, t_common *common);
 bool	is_dead(t_philo *philo, t_common *common);
-void	*finish_full_ret_null(t_common *common);
-void	*finish_died_ret_null(t_common *common);
 
-void	*add_end_philos_count_and_ret_null(t_common *common);
+void	*terminate(t_common *common);
+bool can_catch_fork(t_fork *fork, t_philo *philo);

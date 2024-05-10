@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 10:56:59 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/10 14:00:48 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,38 @@
 //    system("leaks -q philo");
 // }
 
-		// while (!is_dead(philo, common) && !common->someone_died && !(left_fork->last_eat_id != philo->id && left_fork->catched_id == NO_CATCHED) \
-		// 	&& !(right_fork->last_eat_id != philo->id && right_fork->catched_id == NO_CATCHED))
-		// 	usleep(100);
-		// if (is_dead(philo, common) || common->someone_died)
-		// 	break ;
-void *func(void *arg)
+// 自分が死んでいない && 他者も死んでいない && must_eat_countに達していない
+// && 両フォークにアクセスできなかったら->sleep(100)
+void *func(void *data)
 {
 	t_philo *philo;
 	t_common *common;
 	t_fork	*right_fork;
 	t_fork	*left_fork;
 
-	philo = (t_philo *)arg;
+	philo = (t_philo *)data;
 	common = philo->common;
 	left_fork = philo->left_fork;
 	right_fork = philo->right_fork;
-	philo->start = get_time();
-	philo->last_eat_time = philo->start;//common->common_start
-	while (!is_dead(philo, common) && !common->someone_died \
-		&& philo->eat_count < common->must_eat_count)
+	philo->last_eat_time = common->common_start;
+	while (1)
 	{
-		if (left_fork->last_eat_id != philo->id && left_fork->catched_id == NO_CATCHED)
-			catch_fork_L(left_fork, common, philo);
-		if (right_fork->last_eat_id != philo->id && right_fork->catched_id == NO_CATCHED)
-			catch_fork_R(right_fork, common, philo);
-		if (left_fork->catched_id == philo->id && right_fork->catched_id == philo->id)
-			eat_release_sleep(philo, common);
-		usleep(100);
+		while (!is_dead(philo, common) && !common->someone_died \
+			&& philo->eat_count < common->must_eat_count \
+			&& !(can_catch_fork(left_fork, philo) && can_catch_fork(right_fork, philo)))
+			usleep(100);
+		if (common->someone_died || philo->eat_count >= common->must_eat_count)
+			break ;
+		catch_fork(left_fork, common, philo, LEFT);
+		catch_fork(right_fork, common, philo, RIGHT);
+		eat_release_sleep(philo, common);
 	}
-	return (add_end_philos_count_and_ret_null(common));
+	return (terminate(common));
 }
+// if (left_fork->last_eat_id != philo->id && left_fork->catched_id == NO_CATCHED)
+// if (right_fork->last_eat_id != philo->id && right_fork->catched_id == NO_CATCHED)
+// if (left_fork->catched_id == philo->id && right_fork->catched_id == philo->id)
+// usleep(100);
 
 int main (int argc, char **argv)
 {
