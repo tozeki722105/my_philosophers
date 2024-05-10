@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:29:16 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 00:31:35 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/10 10:58:29 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ unsigned long	get_time()
 void	do_eat(t_philo *philo, t_common *common)
 {
 	philo->last_eat_time = get_time();
-	printf("%10lu %d is eating\n", philo->last_eat_time - common->common_start, philo->id);
+	printf("%10lu %d is eating\n", philo->last_eat_time - philo->start, philo->id);//common->common_start
 	usleep(common->eat_time * 1000);
 	philo->eat_count++;
 }
@@ -73,6 +73,14 @@ void	release_fork(t_fork *fork, t_philo *philo)
 	pthread_mutex_unlock(&(fork->lock));
 }
 
+void	eat_release_sleep(t_philo *philo, t_common *common)
+{
+	do_eat(philo, common);
+	release_fork(philo->left_fork, philo);
+	release_fork(philo->right_fork, philo);
+	do_sleep(philo, common);
+}
+
 bool	is_dead(t_philo *philo, t_common *common)
 {
 	unsigned long	time;
@@ -80,18 +88,13 @@ bool	is_dead(t_philo *philo, t_common *common)
 	time = get_time();
 	if (time - philo->last_eat_time >= common->die_time)
 	{
-		printf("%lu %d died\n", time - common->common_start, philo->id);
+		pthread_mutex_lock(&(common->someone_died_lock));
+		common->someone_died = true;
+		pthread_mutex_unlock(&(common->someone_died_lock));	
+		printf("%lu %d died\n", time - philo->start, philo->id);//common->common_start
 		return (true);
 	}
 	return (false);
-}
-
-void	*finish_full_ret_null(t_common *common)
-{
-	pthread_mutex_lock(&(common->eat_count_lock));
-	common->end_eat_count++;
-	pthread_mutex_unlock(&(common->eat_count_lock));
-	return (NULL);
 }
 
 void	*finish_died_ret_null(t_common *common)
@@ -99,5 +102,21 @@ void	*finish_died_ret_null(t_common *common)
 	pthread_mutex_lock(&(common->someone_died_lock));
 	common->someone_died = true;
 	pthread_mutex_unlock(&(common->someone_died_lock));
+	return (NULL);
+}
+
+void	*finish_full_ret_null(t_common *common)
+{
+	pthread_mutex_lock(&(common->end_philos_count_lock));
+	common->end_philos_count++;
+	pthread_mutex_unlock(&(common->end_philos_count_lock));
+	return (NULL);
+}
+
+void	*add_end_philos_count_and_ret_null(t_common *common)
+{
+	pthread_mutex_lock(&(common->end_philos_count_lock));
+	common->end_philos_count++;
+	pthread_mutex_unlock(&(common->end_philos_count_lock));
 	return (NULL);
 }

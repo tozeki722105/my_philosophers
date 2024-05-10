@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/09 22:17:05 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/10 10:55:59 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_common
 	int		must_eat_count;
 	pthread_mutex_t someone_died_lock;
 	bool	someone_died;
-	pthread_mutex_t eat_count_lock;
-	int		end_eat_count;
+	pthread_mutex_t end_philos_count_lock;
+	int		end_philos_count;
 	unsigned long	common_start;
 } t_common;
 
@@ -55,6 +55,7 @@ typedef struct s_philo
 	int				id;
 	int				eat_count;
 	unsigned long	last_eat_time;
+	unsigned long	start;
 	t_fork			*right_fork;
 	t_fork			*left_fork;
 } t_philo;
@@ -74,6 +75,9 @@ void	do_sleep(t_philo *philo, t_common *common);
 void	catch_fork_R(t_fork *fork, t_common *common, t_philo *philo);
 void	catch_fork_L(t_fork *fork, t_common *common, t_philo *philo);
 void	release_fork(t_fork *fork, t_philo *philo);
+void	eat_release_sleep(t_philo *philo, t_common *common);
 bool	is_dead(t_philo *philo, t_common *common);
 void	*finish_full_ret_null(t_common *common);
 void	*finish_died_ret_null(t_common *common);
+
+void	*add_end_philos_count_and_ret_null(t_common *common);

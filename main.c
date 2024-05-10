@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 00:15:40 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/10 10:56:59 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 //    system("leaks -q philo");
 // }
 
+		// while (!is_dead(philo, common) && !common->someone_died && !(left_fork->last_eat_id != philo->id && left_fork->catched_id == NO_CATCHED) \
+		// 	&& !(right_fork->last_eat_id != philo->id && right_fork->catched_id == NO_CATCHED))
+		// 	usleep(100);
+		// if (is_dead(philo, common) || common->someone_died)
+		// 	break ;
 void *func(void *arg)
 {
 	t_philo *philo;
@@ -28,7 +33,8 @@ void *func(void *arg)
 	common = philo->common;
 	left_fork = philo->left_fork;
 	right_fork = philo->right_fork;
-	philo->last_eat_time = common->common_start;
+	philo->start = get_time();
+	philo->last_eat_time = philo->start;//common->common_start
 	while (!is_dead(philo, common) && !common->someone_died \
 		&& philo->eat_count < common->must_eat_count)
 	{
@@ -37,18 +43,10 @@ void *func(void *arg)
 		if (right_fork->last_eat_id != philo->id && right_fork->catched_id == NO_CATCHED)
 			catch_fork_R(right_fork, common, philo);
 		if (left_fork->catched_id == philo->id && right_fork->catched_id == philo->id)
-		{
-			do_eat(philo, common);
-			release_fork(left_fork, philo);
-			release_fork(right_fork, philo);
-			do_sleep(philo, common);
-		}
-		// usleep(100);
+			eat_release_sleep(philo, common);
+		usleep(100);
 	}
-	if (philo->eat_count >= common->must_eat_count)
-		return (finish_full_ret_null(common));
-	return (finish_died_ret_null(common));
-	return (NULL);
+	return (add_end_philos_count_and_ret_null(common));
 }
 
 int main (int argc, char **argv)
