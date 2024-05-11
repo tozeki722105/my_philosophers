@@ -1,6 +1,7 @@
 .vscode/
 takachi_philo/
 philo
+log
 
 # Prerequisites
 *.d

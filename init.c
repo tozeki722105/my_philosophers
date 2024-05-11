@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 14:34:25 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/11 19:32:17 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_fork *init_forks(int philo_count)
 	{
 		pthread_mutex_init(&(fork_array[i].lock), NULL);
 		fork_array[i].last_eat_id = last_ead_id_array[i];
-		fork_array[i].catched_id = NO_CATCHED;
 		i++;
 	}
 	free(last_ead_id_array);

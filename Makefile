@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+         #
+#    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/11 17:04:54 by tozeki           ###   ########.fr        #
+#    Updated: 2024/05/12 03:45:14 by toshi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
-CC			:=	cc -fsanitize=address
+CC			:=	cc -fsanitize=thread
 # CFLAGS		:=	-Wall -Wextra -Werror 
 PTHREAD_FLAGS	:=	-lpthread
 SRC_PATHS	:=	./
@@ -35,7 +35,33 @@ fclean: clean
 
 re: fclean all
 
-p:
-	./$(NAME) 5 600 200 200 10
+0:
+	./$(NAME) 5 610 200 200 10
+1:
+	./$(NAME) 5 610 200 200 10
+1+:
+	./$(NAME) 5 610 200 200 100
+2:
+	./$(NAME) 5 601 200 200 10
+2+:
+	./$(NAME) 5 601 200 200 100
+3:
+	./$(NAME) 200 610 200 200 10
+3+:
+	./$(NAME) 200 610 200 200 100
+4:
+	./$(NAME) 5 610 200 2 10
+4+:
+	./$(NAME) 5 610 200 2 100
+5:
+	./$(NAME) 5 11 3 3 10
+5+:
+	./$(NAME) 5 11 3 3 100
+6:
+	./$(NAME) 5 121 40 40 10
+6+:
+	./$(NAME) 5 121 40 40 100
+7:
+	./$(NAME) 5 600 600 600 5
 
 .PHONY: all clean fclean re
