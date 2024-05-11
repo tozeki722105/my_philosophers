@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:29:16 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/11 13:08:15 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/11 17:23:21 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,32 @@ void	usleep_wrap(unsigned long time)
 {
 	unsigned long limit;
 
-
 	if (time == 0)
 		return ;
-	if (time > 10)
+	//if (time > 10)
+	//{
+	//	limit = get_time() + time;
+	//	usleep((time * 1000) - 10000); //10ms残す - 10000
+	//	while (get_time() < limit)
+	//		usleep(400); //((limit - get_time()) * 1000)
+	//}
+	//else
+	//	usleep(time * 1000);
+	
+	unsigned long diff;
+	
+	limit = get_time() + time;
+	diff = time * 1000;
+	while (diff > 1000)
 	{
-		limit = get_time() + time;
-		usleep((time * 1000) - 10000); //10ms残す - 10000
-		while (get_time() < limit)
-			usleep(400); //((limit - get_time()) * 1000)
+		usleep(diff / 2);
+		diff = (limit - get_time()) % 1000;
+		printf("aaa=%lu\n", diff);
 	}
-	else
-		usleep(time * 1000);
 }
 
+
+//1ミリ秒=1
 unsigned long	get_time()
 {
 	struct timeval  time;
