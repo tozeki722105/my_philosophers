@@ -6,11 +6,29 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:29:16 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 13:57:55 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/11 13:08:15 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	usleep_wrap(unsigned long time)
+{
+	unsigned long limit;
+
+
+	if (time == 0)
+		return ;
+	if (time > 10)
+	{
+		limit = get_time() + time;
+		usleep((time * 1000) - 10000); //10ms残す - 10000
+		while (get_time() < limit)
+			usleep(400); //((limit - get_time()) * 1000)
+	}
+	else
+		usleep(time * 1000);
+}
 
 unsigned long	get_time()
 {
@@ -24,33 +42,34 @@ void	do_eat(t_philo *philo, t_common *common)
 {
 	philo->last_eat_time = get_time();
 	printf("%10lu %d is eating\n", philo->last_eat_time - common->common_start, philo->id);
-	usleep(common->eat_time * 1000);
+	unsigned long time = get_time();
+ 	usleep_wrap(common->eat_time);
+	printf("diff=%lu;\n", get_time() - time);
 	philo->eat_count++;
 }
 
 void	do_sleep(t_philo *philo, t_common *common)
 {
-	// printf("%10lu %d is sleeping\n", get_time() - start, id);
-	usleep(common->sleep_time * 1000);
+	printf("%10lu %d is sleeping\n", get_time() - common->common_start, philo->id);
+	unsigned long time = get_time();
+	usleep_wrap(common->sleep_time);
+	printf("diff=%lu;\n", get_time() - time);
 }
 
 void	catch_fork(t_fork *fork, t_common *common, t_philo *philo, int hand_flag)
 {
-	pthread_mutex_lock(&(fork->lock));
-	fork->catched_id = philo->id;
-	pthread_mutex_unlock(&(fork->lock));
-	// if (hand_flag == RIGHT)
-	// 	printf("%10lu %d has taken a right\n", get_time() - common->common_start, philo->id);
-	// else if (hand_flag == LEFT)
-	// 	printf("%10lu %d has taken a left\n", get_time() - common->common_start, philo->id);
+	if (hand_flag == RIGHT)
+		printf("%10lu %d has taken a right\n", get_time() - common->common_start, philo->id);
+	else if (hand_flag == LEFT)
+		printf("%10lu %d has taken a left\n", get_time() - common->common_start, philo->id);
 }
 
 void	release_fork(t_fork *fork, t_philo *philo)
 {
 	pthread_mutex_lock(&(fork->lock));
-	fork->catched_id = NO_CATCHED;
 	fork->last_eat_id = philo->id;
 	pthread_mutex_unlock(&(fork->lock));
+	// fork->catched_id = NO_CATCHED;
 }
 
 void	eat_release_sleep(t_philo *philo, t_common *common)
@@ -91,5 +110,5 @@ void	*terminate(t_common *common)
 // 後半の条件文は今のアルゴリズムではいらない？？
 bool can_catch_fork(t_fork *fork, t_philo *philo)
 {
-	return (fork->last_eat_id != philo->id && fork->catched_id == NO_CATCHED);
+	return (fork->last_eat_id != philo->id);//&& fork->catched_id == NO_CATCHED
 }

@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 13:48:37 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/10 14:34:25 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_common init_common(int argc, char **argv)
 	common.someone_died = false;
 	pthread_mutex_init((&common.end_philos_count_lock), NULL);
 	common.end_philos_count = 0;
+	common.common_start = 0;
 	return (common);
 }
 

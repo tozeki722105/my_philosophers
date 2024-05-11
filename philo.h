@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/10 14:00:12 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/11 02:49:21 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #define MILLISECONDS	1000
 #define LEFT		0
 #define RIGHT		1
+#define SLEEP_BASE	10000
 
 
 typedef struct s_common
