@@ -19,14 +19,9 @@ int	ft_isdigit(int c)
 
 bool	is_num_only_str(char *str)
 {
-	size_t len;
-
-	if (*str == '\0')
-		return (false);
-	len = ft_strlen(str);
 	while (*str)
 	{
-		if (ft_isdigit(*str))
+		if (!ft_isdigit(*str))
 			return (false);
 		str++;
 	}
