@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/12 03:32:09 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/14 18:43:45 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,18 @@ void	usleep_wrap(unsigned long mili_time)
 {
 	unsigned long limit;
 
-	// unsigned long time = get_time();
 	if (mili_time == 0)
 		;
 	else if (mili_time > 10)
 	{
 		limit = get_time() + mili_time;
-		usleep((mili_time * 1000) - 10000);
+		usleep((mili_time * 1000) - 11000);
 		while (get_time() < limit)
-			usleep(100 + 0);
+			usleep(100);
 		return ;
 	}
 	else
 		usleep(mili_time * 1000);
-	// printf("diff=%lu;\n", get_time() - time);
 }
 
 // ミリ秒単位で返す
@@ -77,5 +75,6 @@ void catch_eat_release_sleep(t_philo *philo, t_common *common)
 	do_eat(philo, common);
 	release_fork(philo->left_fork, philo);
 	release_fork(philo->right_fork, philo);
-	do_sleep(philo, common);
+	if (!is_someone_dead(common))
+		do_sleep(philo, common);
 }

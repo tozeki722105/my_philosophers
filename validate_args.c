@@ -6,18 +6,18 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:39:40 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/11 20:05:19 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/14 03:42:29 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_isdigit(int c)
+static int	ft_isdigit(int c)
 {
 	return ('0' <= c && c <= '9');
 }
 
-bool	is_num_only_str(char *str)
+static bool	is_num_only_str(char *str)
 {
 	while (*str)
 	{

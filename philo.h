@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/12 03:42:07 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/14 19:38:06 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,14 @@
 #include <sys/time.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <string.h>
 
-#define NO_COUNT	0
+#define NO_COUNT	-1
+#define ERROR		-1
 #define RIGHT		1
 #define LEFT		0
+
+typedef	unsigned long t_ms;
 
 typedef struct s_common
 {
@@ -40,11 +44,6 @@ typedef struct s_fork {
 	pthread_mutex_t	lock;
 	int	last_eat_id;
 } t_fork;
-
-typedef struct s_share {
-	pthread_mutex_t lock;
-	int				val;
-} t_share;
 
 typedef struct s_philo
 {

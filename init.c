@@ -6,11 +6,19 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/11 19:32:17 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/14 19:39:40 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+bool	is_arg_overflow(t_common common, int argc)
+{
+	return (common.die_time == -1 \
+		|| common.eat_time == -1 \
+		|| common.sleep_time == -1 \
+		|| (argc == 6 && common.must_eat_count == -1));
+} 
 
 t_common init_common(int argc, char **argv)
 {
@@ -23,6 +31,7 @@ t_common init_common(int argc, char **argv)
 		common.must_eat_count = atoi(argv[5]);
 	else
 		common.must_eat_count = NO_COUNT;
+	// if (is_arg_overflow())
 	pthread_mutex_init((&common.someone_died_lock), NULL);
 	common.someone_died = false;
 	pthread_mutex_init((&common.end_philos_count_lock), NULL);

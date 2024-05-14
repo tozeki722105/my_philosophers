@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:21:03 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/12 03:40:18 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/14 19:24:37 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,10 @@ bool can_catch_fork(t_fork *fork, t_philo *philo)
 	return (ret);
 }
 
-// int decide_catch_forks_or_think(t_philo *philo, t_common *common)
-// {
-// 	if (can_catch_fork(philo->left_fork, philo) \
-// 	&& can_catch_fork(philo->right_fork, philo))
-// 		return (CATCH_FORKS);
-// 	printf("%10lu %d is thinking\n", get_time() - common->common_start, \
-// 		philo->id);
-// 	return (THINK);
-// }
+bool	is_finished_eating(t_philo *philo, t_common *common)
+{
+	return (common->must_eat_count != NO_COUNT && philo->eat_count >= common->must_eat_count);
+}
 
 // 自分が死んでいない && 他者も死んでいない && must_eat_countに達していない
 // && 両フォークにアクセスできなかったら->sleep(100)
@@ -80,22 +75,19 @@ void *func(void *data)
 	philo = (t_philo *)data;
 	common = philo->common;
 	philo->last_eat_time = common->common_start;
-	while (1)
+	while (!is_dead(philo, common) \
+		&& !is_someone_dead(common) \
+		&& !is_finished_eating(philo, common))
 	{
 		printf("%10lu %d is thinking\n", get_time() - common->common_start, philo->id);
 		while (!is_dead(philo, common) \
 			&& !is_someone_dead(common) \
-			&& philo->eat_count < common->must_eat_count \
 			&& !(can_catch_fork(philo->left_fork, philo) \
 			&& can_catch_fork(philo->right_fork, philo)))
 			usleep(100);
-		if (is_someone_dead(common) || philo->eat_count >= common->must_eat_count)
+		if (is_someone_dead(common))
 			break ;
 		catch_eat_release_sleep(philo, common);
 	}
 	return (terminate(common));
 }
-// if (left_fork->last_eat_id != philo->id && left_fork->catched_id == NO_CATCHED)
-// if (right_fork->last_eat_id != philo->id && right_fork->catched_id == NO_CATCHED)
-// if (left_fork->catched_id == philo->id && right_fork->catched_id == philo->id)
-// usleep(100);
