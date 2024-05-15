@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
+#    By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/12 03:45:14 by toshi            ###   ########.fr        #
+#    Updated: 2024/05/15 19:33:14 by tozeki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
-CC			:=	cc -fsanitize=thread
+CC			:=	cc 
 # CFLAGS		:=	-Wall -Wextra -Werror 
 PTHREAD_FLAGS	:=	-lpthread
 SRC_PATHS	:=	./

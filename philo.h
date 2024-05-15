@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/15 19:05:23 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/15 20:07:34 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,3 +80,7 @@ int		ph_atoi(const char *str);
 void	fill_null(t_common **common, t_fork **forks, t_philo **philos, pthread_t **threads);
 
 void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threads);
+
+bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, t_philo **philo);
+bool	initialize_forks(int philo_count, t_fork **forks);
+bool	initialize_common(int argc, char **argv, t_common **common);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/15 19:06:36 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/15 20:22:15 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threa
 	
 	if (common)
 	{
+		printf("aaaa\n");
 		pthread_mutex_destroy(&(common->someone_died_lock));
 		free(common);
 	}
@@ -45,14 +46,14 @@ void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threa
 		free(threads);
 }
 
-static t_philo	*initialize_philos(int philo_count, t_common *common, t_fork *forks)
+bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, t_philo **philo)
 {
 	t_philo		*philo_array;
 	int			i;
 
 	philo_array = (t_philo *)malloc(philo_count * sizeof(t_philo));
 	if (!philo_array)
-		return (NULL);
+		return (false);
 	i = 0;
 	while (i < philo_count)
 	{
@@ -68,11 +69,12 @@ static t_philo	*initialize_philos(int philo_count, t_common *common, t_fork *for
 		philo_array[i].left_fork = &(forks[i]);
 		i++;
 	}
-	return (philo_array);
+	*philo = philo_array;
+	return (true);
 }
 
 // memset(forks_cpy, '0', philo_count * sizeof(t_fork));
-static bool	initialize_forks(int philo_count, t_fork **forks)
+bool	initialize_forks(int philo_count, t_fork **forks)
 {
 	t_fork	*forks_cpy;
 	int		*last_eat_id_array;
@@ -110,7 +112,7 @@ static bool	is_arg_overflow(t_common common, int argc)
 	return (false);
 }
 
-static bool	initialize_common(int argc, char **argv, t_common **common)
+bool	initialize_common(int argc, char **argv, t_common **common)
 {
 	t_common *common_cpy;
 
@@ -128,36 +130,39 @@ static bool	initialize_common(int argc, char **argv, t_common **common)
 		common_cpy->must_eat_count = NO_COUNT;
 	if (is_arg_overflow(*common_cpy, argc) \
 		|| pthread_mutex_init((&common_cpy->someone_died_lock), NULL) == ERROR)
+	{
+		//free(common_cpy);
 		return (false);
+	}
 	common_cpy->someone_died = false;
 	common_cpy->common_start = 0;
 	return (true);
 }
 
-t_philo	*initialize(int argc, char **argv, t_common **common, t_fork **forks)
-{
-	t_philo *philos;
+//t_philo	*initialize(int argc, char **argv, t_common **common, t_fork **forks)
+//{
+//	t_philo *philos;
 
-	if (!validate_args(argc, argv))
-		return (NULL);
-	if (!initialize_common(argc, argv, common))
-	{
-		finalize(*common, NULL, NULL, NULL);
-		return (NULL);
-	}
-	if (!initialize_forks((*common)->philo_count, forks))
-	{
-		finalize(*common, *forks, NULL, NULL);
-		return (NULL);
-	}
-	philos = initialize_philos((*common)->philo_count, *common, *forks);
-	if (!philos)
-	{
-		finalize(*common, *forks, philos, NULL);
-		return (NULL);
-	}
-	return (philos);
-}
+//	//if (!validate_args(argc, argv))
+//	//	return (NULL);
+//	if (!initialize_common(argc, argv, common))
+//	{
+//		//finalize(*common, NULL, NULL, NULL);
+//		return (NULL);
+//	}
+//	if (!initialize_forks((*common)->philo_count, forks))
+//	{
+//		//finalize(*common, *forks, NULL, NULL);
+//		return (NULL);
+//	}
+//	philos = initialize_philos((*common)->philo_count, *common, *forks);
+//	if (!philos)
+//	{
+//		//finalize(*common, *forks, philos, NULL);
+//		return (NULL);
+//	}
+//	return (philos);
+//}
 
 
 

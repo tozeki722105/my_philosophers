@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:21:03 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/15 19:03:17 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/15 19:25:42 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_init(t_philo *philo)
 {
 	printf("philo_id=%d;\n", philo->id);
-	printf("die_time=%d;\n", philo->common->philo_count);
+	printf("philo_count=%d;\n", philo->common->philo_count);
 	printf("die_time=%d;\n", philo->common->die_time);
 	printf("eat_time=%d;\n", philo->common->eat_time);
 	printf("sleep_time=%d;\n", philo->common->sleep_time);
