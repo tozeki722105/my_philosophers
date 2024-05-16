@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:54:57 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/14 22:34:23 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/16 20:28:17 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putendl(char *s, int fd)
 {
 	write(fd, s, ft_strlen(s));
 	write(fd, "\n", 1);

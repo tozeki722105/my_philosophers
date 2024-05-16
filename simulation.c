@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:21:03 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/15 19:25:42 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/17 02:20:22 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	print_init(t_philo *philo)
 {
 	printf("philo_id=%d;\n", philo->id);
-	printf("philo_count=%d;\n", philo->common->philo_count);
+	printf("start_time=%lu;\n", philo->start_time);
+	printf("laste_time=%lu;\n", philo->last_eat_time);
 	printf("die_time=%d;\n", philo->common->die_time);
 	printf("eat_time=%d;\n", philo->common->eat_time);
 	printf("sleep_time=%d;\n", philo->common->sleep_time);
@@ -35,22 +36,20 @@ void	*simulation(void *data)
 
 	philo = (t_philo *)data;
 	common = philo->common;
-	philo->last_eat_time = common->common_start;
-	pthread_mutex_lock(&(common->someone_died_lock));
-	print_init(philo);
-	pthread_mutex_unlock(&(common->someone_died_lock));
-	// while (!is_dead(philo, common) \
-	// 	&& !is_someone_dead(common) \
-	// 	&& !is_finished_eating(philo, common))
-	// {
-	// 	think(philo, common);
-	// 	while (!is_dead(philo, common) \
-	// 		&& !is_someone_dead(common) \
-	// 		&& !can_take_pair_forks(philo))
-	// 		usleep(100);
-	// 	if (is_someone_dead(common))
-	// 		return (NULL);
-	// 	take_eat_release_sleep(philo, common);
-	// }
+	philo->start_time = get_time();
+	philo->last_eat_time = philo->start_time;
+	while (!is_dead(philo, common) \
+		&& !is_someone_dead(common) \
+		&& !is_finished_eating(philo, common))
+	{
+		think(philo, common);
+		while (!is_dead(philo, common) \
+			&& !is_someone_dead(common) \
+			&& !can_take_pair_forks(philo))
+			usleep(100);
+		if (is_someone_dead(common))
+			return (NULL);
+		take_eat_release_sleep(philo, common);
+	}
 	return (NULL);
 }

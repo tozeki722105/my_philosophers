@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/15 20:07:34 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/17 02:21:11 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <pthread.h>
 #include <unistd.h>
-#include <stdbool.h>
 #include <time.h>
 #include <sys/time.h>
-#include <stdlib.h>
+#include <stdbool.h>
 #include <limits.h>
-#include <string.h>
 
-#define NO_COUNT	-1
-#define ERROR		-1
+#define NO_COUNT			-1
+#define ERROR				-1
+#define FAIL_EXIT_STATUS	1
+#define SUCCESS_EXIT_STATUS	0
+#define DEAD_LINE			10
 #define RIGHT		1
 #define LEFT		0
 
@@ -36,7 +38,6 @@ typedef struct s_common
 	int				must_eat_count;
 	pthread_mutex_t	someone_died_lock;
 	bool			someone_died;
-	t_ms			common_start;
 } t_common;
 
 typedef struct s_fork {
@@ -55,32 +56,29 @@ typedef struct s_philo
 	t_fork		*left_fork;
 } t_philo;
 
-//simulation.c
-void	*simulation(void *data);
+//init.c
+bool	initialize_forks(int philo_count, t_fork **forks);
+bool	initialize_common(int argc, char **argv, t_common **common);
+bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, t_philo **philo);
 //simulation_utils.c
 bool	is_dead(t_philo *philo, t_common *common);
 bool	can_take_pair_forks(t_philo *philo);
 bool	is_finished_eating(t_philo *philo, t_common *common);
-void	usleep_wrap(int ms_time);
+void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	is_someone_dead(t_common *common);
-t_ms	get_time();
 void	think(t_philo *philo, t_common *common);
 void	take_eat_release_sleep(t_philo *philo, t_common *common);
-// init.c
-t_philo	*initialize(int argc, char **argv, t_common **common, t_fork **forks);
-int *make_last_ead_id_array(int philo_count);
+//simulation.c
+void	*simulation(void *data);
+//utils_libft.c
+size_t	ft_strlen(const char *s);
+void	ft_putendl(char *s, int fd);
+int		ph_atoi(const char *str);
+//utils.c
+t_ms	get_time();
+void	print_err(char *s);
+void	*malloc_wrap(size_t size);
+int		mutex_init_wrap(pthread_mutex_t *mutex);
+void	destroy_forks_mutex(t_fork *forks, int count);
 //validate_args.c
 bool	validate_args(int argc, char **argv);
-//utils.c
-//utils_libft.c
-void	ft_putendl_fd(char *s, int fd);
-size_t	ft_strlen(const char *s);
-int		ph_atoi(const char *str);
-
-void	fill_null(t_common **common, t_fork **forks, t_philo **philos, pthread_t **threads);
-
-void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threads);
-
-bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, t_philo **philo);
-bool	initialize_forks(int philo_count, t_fork **forks);
-bool	initialize_common(int argc, char **argv, t_common **common);
