@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 02:21:17 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 14:21:22 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int *make_last_eat_id_array(int philo_count)
 	return (array);
 }
 
-static int	initialize_forks_helper(int philo_count, t_fork *forks_cpy, int *last_eat_id_array)
+static int	set_fork_data(int philo_count, t_fork *forks_cpy, int *last_eat_id_array)
 {
 	int i;
 
@@ -94,8 +94,7 @@ bool	initialize_forks(int philo_count, t_fork **forks)
 		free(forks_cpy);
 		return (false);
 	}
-	set_count = initialize_forks_helper(philo_count, \
-		forks_cpy, last_eat_id_array);
+	set_count = set_fork_data(philo_count, forks_cpy, last_eat_id_array);
 	free(last_eat_id_array);
 	if (set_count < philo_count)
 	{
@@ -115,7 +114,7 @@ static bool	is_arg_overflow(t_common common, int argc)
 		|| common.sleep_time == ERROR \
 		|| (argc == 6 && common.must_eat_count == ERROR))
 	{
-		print_err("argv int_overflow");
+		print_err("There is an argument for int_overflow");
 		return (true);
 	}
 	return (false);
@@ -128,12 +127,12 @@ bool	initialize_common(int argc, char **argv, t_common **common)
 	common_cpy = (t_common *)malloc_wrap(sizeof(t_common));
 	if (!common_cpy)
 		return (false);
-	common_cpy->philo_count = atoi(argv[1]);
-	common_cpy->die_time = atoi(argv[2]);
-	common_cpy->eat_time = atoi(argv[3]);
-	common_cpy->sleep_time = atoi(argv[4]);
+	common_cpy->philo_count = atoi_for_natural(argv[1]);
+	common_cpy->die_time = atoi_for_natural(argv[2]);
+	common_cpy->eat_time = atoi_for_natural(argv[3]);
+	common_cpy->sleep_time = atoi_for_natural(argv[4]);
 	if (argc == 6)
-		common_cpy->must_eat_count = atoi(argv[5]);
+		common_cpy->must_eat_count = atoi_for_natural(argv[5]);
 	else
 		common_cpy->must_eat_count = NO_COUNT;
 	if (is_arg_overflow(*common_cpy, argc) \

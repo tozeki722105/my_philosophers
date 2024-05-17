@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 13:03:59 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 13:42:02 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	*simulation(void *data);
 //utils_libft.c
 size_t	ft_strlen(const char *s);
 void	ft_putendl(char *s, int fd);
-int		ph_atoi(const char *str);
+int		atoi_for_natural(const char *str);
 //utils.c
 t_ms	get_time();
 void	print_err(char *s);

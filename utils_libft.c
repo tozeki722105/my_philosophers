@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:54:57 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/16 20:28:17 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 14:12:53 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	ft_putendl(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-//数値だけの文字列限定、自然数限定のatoi
-int		ph_atoi(const char *str)
+// 数値だけの文字列限定、自然数限定のatoi
+// 数字以外を含んだ文字列(+/-含む)は事前にハジく必要あり
+int		atoi_for_natural(const char *str)
 {
 	int	num;
 
@@ -44,3 +45,10 @@ int		ph_atoi(const char *str)
 	}
 	return (num);
 }
+
+// int main(int argc, char **argv)
+// {
+// 	if (argc < 2)
+// 		return (1);
+// 	printf("%d\n", atoi_for_natural(argv[1]));
+// }
