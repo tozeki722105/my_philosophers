@@ -1,6 +1,8 @@
 .vscode/
 takachi_philo/
-philo
+philo/*.o
+philo/philo
+philo/a.out
 log
 
 # Prerequisites

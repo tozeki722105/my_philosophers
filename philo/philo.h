@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 02:56:16 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 03:20:56 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_common
 	bool			someone_died;
 	int				start_flag;
 	t_ms			start_time;
-	int				create_count;
+	int				created_count;
 } t_common;
 
 typedef struct s_fork {
@@ -74,11 +74,11 @@ bool	initialize_forks(int philo_count, t_fork **forks);
 bool	is_dead(t_philo *philo, t_common *common);
 void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	can_take_pair_forks(t_philo *philo);
-bool	is_finished_eating(t_philo *philo, t_common *common);
+bool	is_eating_finished(t_philo *philo, t_common *common);
 bool	is_someone_dead(t_common *common);
 void	think(t_philo *philo, t_common *common);
 void	take_eat_release_sleep(t_philo *philo, t_common *common);
-bool can_start(t_common *common, t_philo *philo);
+bool can_start(t_common *common);
 //simulate.c
 void	*simulate(void *data);
 //utils_libft.c

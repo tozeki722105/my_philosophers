@@ -45,7 +45,7 @@ bool	is_dead(t_philo *philo, t_common *common)
 	t_ms	now;
 	
 	now = get_time();
-	if (now - philo->last_eat_time > common->die_time)
+	if ((int)(now - philo->last_eat_time) > common->die_time)
 	{
 		pthread_mutex_lock(&(common->lock));
 		common->someone_died = true;

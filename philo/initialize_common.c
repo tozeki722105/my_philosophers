@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:21:47 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 02:56:16 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 03:12:25 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ static int	atoi_for_natural(const char *str)
 	{	
 		if (num > (INT_MAX / 10)
 			|| (num == (INT_MAX / 10) && (*str - '0') > (INT_MAX % 10)))
-			return (-1);
+			return (ERROR);
 		num = (num * 10) + (*str - '0');
 		str++;
 	}
 	return (num);
 }
 
-// common.create_count/common.start_timeは
+// common.created_count/common.start_timeは
 // initialize_threads_and_simulate()で初期化される
 bool	initialize_common(int argc, char **argv, t_common **common)
 {

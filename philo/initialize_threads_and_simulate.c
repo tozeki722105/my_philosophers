@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-static int	create_threads_and_ret_count(pthread_t *threads_cpy, t_philo *philos, int philo_count)
+static int	create_threads(pthread_t *threads_cpy, t_philo *philos, int philo_count)
 {
 	int i;
 
@@ -30,10 +30,10 @@ bool	initialize_threads_and_simulate(pthread_t **threads, t_common *common, t_ph
 	threads_cpy = (pthread_t *)malloc_wrap(common->philo_count * sizeof(pthread_t));
 	if (!threads_cpy)
 		return (false);
-	common->create_count = create_threads_and_ret_count(threads_cpy, philos, common->philo_count);
+	common->created_count = create_threads(threads_cpy, philos, common->philo_count);
 	common->start_time = get_time();
 	pthread_mutex_lock(&(common->lock));
-	common->start_flag = (common->create_count == common->philo_count);
+	common->start_flag = (common->created_count == common->philo_count);
 	pthread_mutex_unlock(&(common->lock));
 	*threads = threads_cpy;
 	return (true);

@@ -6,17 +6,30 @@
 #    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/18 02:54:50 by toshi            ###   ########.fr        #
+#    Updated: 2024/05/18 03:37:55 by toshi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
+
 CC			:=	cc -fsanitize=thread -g
-# CFLAGS		:=	-Wall -Wextra -Werror 
+CFLAGS		:=	-Wall -Wextra -Werror 
+
 PTHREAD_FLAGS	:=	-lpthread
-SRC_PATHS	:=	./
-SRCS		:=	$(foreach path, $(SRC_PATHS), $(wildcard $(path)*.c))
-OUT_PATTERN	:=	tmp.c make_validate_args.c
+
+SRCS		:=	initialize_common.c \
+				initialize_forks.c \
+				initialize_philos.c \
+				initialize_threads_and_simulate.c \
+				main.c \
+				main_utils.c \
+				simulate.c \
+				simulate_utils.c \
+				simulate_utils2.c \
+				utils.c \
+				utils2.c \
+				utils_libft.c 
+OUT_PATTERN	:=	
 OBJS		:=	$(patsubst %.c, %.o, $(filter-out $(OUT_PATTERN), $(SRCS)))
 
 all:	$(NAME)

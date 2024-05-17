@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:10:04 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/18 00:52:21 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 03:19:57 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	wait_threads(pthread_t *threads, t_common *common)
 	int i;
 
 	i = 0;
-	while (i < common->create_count)
+	while (i < common->created_count)
 	{
 		pthread_join(threads[i], NULL);
 		i++;
@@ -71,7 +71,7 @@ static bool	is_num_only_str(char *str)
 
 bool	validate_args(int argc, char **argv)
 {
-	size_t i;
+	int i;
 
 	if (!(argc == 5 || argc == 6))
 	{

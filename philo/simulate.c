@@ -12,21 +12,21 @@
 
 #include "philo.h"
 
-static void	print_philo(t_philo *philo)
-{
-	printf("philo_id=%d;\n", philo->id);
-	printf("laste_time=%lu;\n", philo->last_eat_time);
-	printf("die_time=%d;\n", philo->common->die_time);
-	printf("eat_time=%d;\n", philo->common->eat_time);
-	printf("sleep_time=%d;\n", philo->common->sleep_time);
-	printf("must_eat_count=%d;\n", philo->common->must_eat_count);
-	printf("eat_count=%d;\n", philo->eat_count);
-	printf("right_fork.last_eat_id=%d;\n", philo->right_fork->last_eat_id);
-	printf("left_fork.last_eat_id=%d;\n", philo->left_fork->last_eat_id);
-	printf("\n\n");
-}
+// static void	print_philo(t_philo *philo)
+// {
+// 	printf("philo_id=%d;\n", philo->id);
+// 	printf("laste_time=%lu;\n", philo->last_eat_time);
+// 	printf("die_time=%d;\n", philo->common->die_time);
+// 	printf("eat_time=%d;\n", philo->common->eat_time);
+// 	printf("sleep_time=%d;\n", philo->common->sleep_time);
+// 	printf("must_eat_count=%d;\n", philo->common->must_eat_count);
+// 	printf("eat_count=%d;\n", philo->eat_count);
+// 	printf("right_fork.last_eat_id=%d;\n", philo->right_fork->last_eat_id);
+// 	printf("left_fork.last_eat_id=%d;\n", philo->left_fork->last_eat_id);
+// 	printf("\n\n");
+// }
 
-bool can_start(t_common *common, t_philo *philo)
+bool can_start(t_common *common)
 {
 	while (1)
 	{
@@ -46,7 +46,7 @@ void	think(t_philo *philo, t_common *common)
 		get_time() - common->start_time, philo->id);
 }
 
-bool	is_finished_eating(t_philo *philo, t_common *common)
+bool	is_eating_finished(t_philo *philo, t_common *common)
 {
 	return (common->must_eat_count != NO_COUNT \
 		&& philo->eat_count >= common->must_eat_count);
@@ -61,12 +61,12 @@ void	*simulate(void *data)
 
 	philo = (t_philo *)data;
 	common = philo->common;
-	if (!can_start(common, philo))
+	if (!can_start(common))
 		return (NULL);
 	philo->last_eat_time = common->start_time;
 	while (!is_someone_dead(common) \
 		&& !is_dead(philo, common) \
-		&& !is_finished_eating(philo, common))
+		&& !is_eating_finished(philo, common))
 	{
 		think(philo, common);
 		while (!is_someone_dead(common) \
