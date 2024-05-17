@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:21:03 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 02:20:22 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 12:56:50 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	*simulation(void *data)
 	common = philo->common;
 	philo->start_time = get_time();
 	philo->last_eat_time = philo->start_time;
-	while (!is_dead(philo, common) \
-		&& !is_someone_dead(common) \
+	while (!is_someone_dead(common) \
+		&& !is_dead(philo, common) \
 		&& !is_finished_eating(philo, common))
 	{
 		think(philo, common);
-		while (!is_dead(philo, common) \
-			&& !is_someone_dead(common) \
+		while (!is_someone_dead(common) \
+			&& !is_dead(philo, common) \
 			&& !can_take_pair_forks(philo))
 			usleep(100);
 		if (is_someone_dead(common))

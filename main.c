@@ -6,16 +6,16 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 02:20:34 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 12:45:50 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-__attribute__((destructor))
- static void destructor() {
-    system("leaks -q philo");
-}
+// __attribute__((destructor))
+//  static void destructor() {
+//     system("leaks -q philo");
+// }
 
 void	set_null(t_common **common, t_fork **forks, t_philo **philos, pthread_t **threads)
 {

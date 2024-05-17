@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 02:21:11 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 13:03:59 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define ERROR				-1
 #define FAIL_EXIT_STATUS	1
 #define SUCCESS_EXIT_STATUS	0
-#define DEAD_LINE			10
+#define DEAD_LINE			9
 #define RIGHT		1
 #define LEFT		0
 
