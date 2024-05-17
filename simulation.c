@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:21:03 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 12:56:50 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 21:04:54 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_init(t_philo *philo)
+static void	print_philo(t_philo *philo)
 {
 	printf("philo_id=%d;\n", philo->id);
 	printf("start_time=%lu;\n", philo->start_time);
@@ -27,6 +27,21 @@ void	print_init(t_philo *philo)
 	printf("\n\n");
 }
 
+bool wait_start(t_common *common, t_philo *philo)
+{
+	while (1)
+	{
+		printf("id=%d\n", philo->id);
+		pthread_mutex_lock(&(common->ready_flag_lock));
+		if (common->ready_flag != false)
+		{
+			pthread_mutex_unlock(&(common->ready_flag_lock));
+			return (common->ready_flag == true);
+		}
+		pthread_mutex_unlock(&(common->ready_flag_lock));
+	}
+}
+
 // 自分が死んでいない && 他者も死んでいない && must_eat_countに達していない
 // && 両フォークにアクセスできなかったら->sleep(100)
 void	*simulation(void *data)
@@ -36,6 +51,8 @@ void	*simulation(void *data)
 
 	philo = (t_philo *)data;
 	common = philo->common;
+	//if (!wait_start(common, philo))
+	//	return (NULL);
 	philo->start_time = get_time();
 	philo->last_eat_time = philo->start_time;
 	while (!is_someone_dead(common) \

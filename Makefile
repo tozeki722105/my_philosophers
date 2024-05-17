@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
+#    By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/17 13:21:22 by toshi            ###   ########.fr        #
+#    Updated: 2024/05/17 21:11:23 by tozeki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
-CC			:=	cc 
+CC			:=	cc -fsanitize=thread -g
 # CFLAGS		:=	-Wall -Wextra -Werror 
 PTHREAD_FLAGS	:=	-lpthread
 SRC_PATHS	:=	./
 SRCS		:=	$(foreach path, $(SRC_PATHS), $(wildcard $(path)*.c))
-OUT_PATTERN	:=	tmp.c make_last_eat_id_array.c
+OUT_PATTERN	:=	tmp.c make_validate_args.c
 OBJS		:=	$(patsubst %.c, %.o, $(filter-out $(OUT_PATTERN), $(SRCS)))
 
 all:	$(NAME)

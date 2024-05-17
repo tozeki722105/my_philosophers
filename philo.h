@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 13:42:02 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/17 20:30:46 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ typedef struct s_common
 	int				must_eat_count;
 	pthread_mutex_t	someone_died_lock;
 	bool			someone_died;
+	pthread_mutex_t ready_flag_lock;
+	int				ready_flag;
+	t_ms			common_start;
+	//pthread_mutex_t	common_start_lock;
 } t_common;
 
 typedef struct s_fork {
@@ -56,15 +60,23 @@ typedef struct s_philo
 	t_fork		*left_fork;
 } t_philo;
 
-//init.c
-bool	initialize_forks(int philo_count, t_fork **forks);
+
+//main_utils.c
+void	set_null(t_common **common, t_fork **forks, t_philo **philos, pthread_t **threads);
+void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threads);
+void	wait_threads(pthread_t *threads, t_common *common);
+bool	validate_args(int argc, char **argv);
+//initialize.c
 bool	initialize_common(int argc, char **argv, t_common **common);
 bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, t_philo **philo);
+bool	initialize_and_create_threads(pthread_t **threads, t_common *common, t_philo *philos);
+//initialize_forks.c
+bool	initialize_forks(int philo_count, t_fork **forks);
 //simulation_utils.c
 bool	is_dead(t_philo *philo, t_common *common);
+void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	can_take_pair_forks(t_philo *philo);
 bool	is_finished_eating(t_philo *philo, t_common *common);
-void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	is_someone_dead(t_common *common);
 void	think(t_philo *philo, t_common *common);
 void	take_eat_release_sleep(t_philo *philo, t_common *common);
@@ -73,12 +85,13 @@ void	*simulation(void *data);
 //utils_libft.c
 size_t	ft_strlen(const char *s);
 void	ft_putendl(char *s, int fd);
-int		atoi_for_natural(const char *str);
+int	ft_isdigit(int c);
 //utils.c
 t_ms	get_time();
 void	print_err(char *s);
 void	*malloc_wrap(size_t size);
 int		mutex_init_wrap(pthread_mutex_t *mutex);
+int pthread_create_wrap(pthread_t *thread, void *(*routine)(void *), void *arg);
 void	destroy_forks_mutex(t_fork *forks, int count);
 //validate_args.c
 bool	validate_args(int argc, char **argv);
