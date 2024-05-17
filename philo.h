@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 01:31:32 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 02:56:16 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #define ERROR				-1
 #define DEFAULT				2
 #define DEAD_LINE			9
+#define SUCCESS				0
 
 typedef	unsigned long t_ms;
 
@@ -66,10 +67,10 @@ bool	validate_args(int argc, char **argv);
 //initialize.c
 bool	initialize_common(int argc, char **argv, t_common **common);
 bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, t_philo **philo);
-bool	initialize_and_create_threads(pthread_t **threads, t_common *common, t_philo *philos);
+bool	initialize_threads_and_simulate(pthread_t **threads, t_common *common, t_philo *philos);
 //initialize_forks.c
 bool	initialize_forks(int philo_count, t_fork **forks);
-//simulation_utils.c
+//simulate_utils.c
 bool	is_dead(t_philo *philo, t_common *common);
 void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	can_take_pair_forks(t_philo *philo);
@@ -78,8 +79,8 @@ bool	is_someone_dead(t_common *common);
 void	think(t_philo *philo, t_common *common);
 void	take_eat_release_sleep(t_philo *philo, t_common *common);
 bool can_start(t_common *common, t_philo *philo);
-//simulation.c
-void	*simulation(void *data);
+//simulate.c
+void	*simulate(void *data);
 //utils_libft.c
 size_t	ft_strlen(const char *s);
 void	ft_putendl(char *s, int fd);

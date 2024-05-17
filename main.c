@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 21:22:06 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/18 02:56:16 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main (int argc, char **argv)
 		|| !initialize_common(argc, argv, &common)
 		|| !initialize_forks(common->philo_count, &forks)
 		|| !initialize_philos(common->philo_count, common, forks, &philos)
-		|| !initialize_and_create_threads(&threads, common, philos))
+		|| !initialize_threads_and_simulate(&threads, common, philos))
 	{
 		finalize(common, forks, philos, threads);
 		return (FAIL_EXIT_STATUS);

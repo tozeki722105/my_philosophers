@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulation.c                                       :+:      :+:    :+:   */
+/*   simulate.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -54,7 +54,7 @@ bool	is_finished_eating(t_philo *philo, t_common *common)
 
 // 自分が死んでいない && 他者も死んでいない && must_eat_countに達していない
 // && 両フォークにアクセスできなかったら->sleep(100)
-void	*simulation(void *data)
+void	*simulate(void *data)
 {
 	t_philo *philo;
 	t_common *common;

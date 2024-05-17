@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:29:16 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 02:24:31 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 02:48:48 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	mutex_init_wrap(pthread_mutex_t *mutex)
 	int ret;
 
 	ret = pthread_mutex_init(mutex, NULL);
-	if (ret == ERROR)
+	if (ret != SUCCESS)
 		print_err("mutex error");
 	return (ret);
 }
@@ -51,19 +51,7 @@ int pthread_create_wrap(pthread_t *thread, void *(*routine)(void *), void *arg)
 	int ret;
 	
 	ret = pthread_create(thread, NULL, routine, arg);
-	if (ret != 0)
+	if (ret != SUCCESS)
 		print_err("pthread_create error");
 	return (ret);
-}
-
-void	destroy_forks_mutex(t_fork *forks, int count)
-{
-	int i;
-
-	i = 0;
-	while (i < count)
-	{
-		pthread_mutex_destroy(&(forks[i].lock));
-		i++;
-	}
 }

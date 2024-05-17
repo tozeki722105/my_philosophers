@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_forks.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:06:38 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/17 17:07:06 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/18 02:51:37 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	set_fork_data(int philo_count, t_fork *forks_cpy, int *last_eat_id_ar
 	i = 0;
 	while (i < philo_count)
 	{
-		if (mutex_init_wrap(&(forks_cpy[i].lock)) == ERROR)
+		if (mutex_init_wrap(&(forks_cpy[i].lock)) != SUCCESS)
 			break ;
 		forks_cpy[i].last_eat_id = last_eat_id_array[i];
 		i++;

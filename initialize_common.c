@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:21:47 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 01:26:31 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 02:56:16 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	atoi_for_natural(const char *str)
 }
 
 // common.create_count/common.start_timeは
-// initialize_and_create_threads()で初期化される
+// initialize_threads_and_simulate()で初期化される
 bool	initialize_common(int argc, char **argv, t_common **common)
 {
 	t_common *common_cpy;
@@ -62,7 +62,7 @@ bool	initialize_common(int argc, char **argv, t_common **common)
 	else
 		common_cpy->must_eat_count = NO_COUNT;
 	if (is_arg_overflow(*common_cpy, argc) \
-		|| mutex_init_wrap(&(common_cpy->lock)) == ERROR)
+		|| mutex_init_wrap(&(common_cpy->lock)) != SUCCESS)
 	{
 		free(common_cpy);
 		return (false);

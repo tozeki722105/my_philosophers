@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_and_create_threads.c                    :+:      :+:    :+:   */
+/*   initialize_threads_and_simulate.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -18,12 +18,12 @@ static int	create_threads_and_ret_count(pthread_t *threads_cpy, t_philo *philos,
 
 	i = 0;
 	while (i < philo_count \
-		&& pthread_create_wrap(&(threads_cpy[i]), simulation, (void *)&(philos[i])) == 0)
+		&& pthread_create_wrap(&(threads_cpy[i]), simulate, (void *)&(philos[i])) == SUCCESS)
 		i++;
 	return (i);
 }
 
-bool	initialize_and_create_threads(pthread_t **threads, t_common *common, t_philo *philos)
+bool	initialize_threads_and_simulate(pthread_t **threads, t_common *common, t_philo *philos)
 {
 	pthread_t *threads_cpy;
 
