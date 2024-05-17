@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:10:04 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/17 21:21:30 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/18 00:52:21 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threa
 	}
 	if (common)
 	{
-		pthread_mutex_destroy(&(common->ready_flag_lock));
-		pthread_mutex_destroy(&(common->someone_died_lock));
+		pthread_mutex_destroy(&(common->lock));
 		free(common);
 	}
 }
@@ -44,7 +43,7 @@ void	wait_threads(pthread_t *threads, t_common *common)
 	int i;
 
 	i = 0;
-	while (i < common->philo_count)
+	while (i < common->create_count)
 	{
 		pthread_join(threads[i], NULL);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:21:03 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 21:04:54 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/18 02:20:44 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	print_philo(t_philo *philo)
 {
 	printf("philo_id=%d;\n", philo->id);
-	printf("start_time=%lu;\n", philo->start_time);
 	printf("laste_time=%lu;\n", philo->last_eat_time);
 	printf("die_time=%d;\n", philo->common->die_time);
 	printf("eat_time=%d;\n", philo->common->eat_time);
@@ -27,19 +26,30 @@ static void	print_philo(t_philo *philo)
 	printf("\n\n");
 }
 
-bool wait_start(t_common *common, t_philo *philo)
+bool can_start(t_common *common, t_philo *philo)
 {
 	while (1)
 	{
-		printf("id=%d\n", philo->id);
-		pthread_mutex_lock(&(common->ready_flag_lock));
-		if (common->ready_flag != false)
+		pthread_mutex_lock(&(common->lock));
+		if (common->start_flag != DEFAULT)
 		{
-			pthread_mutex_unlock(&(common->ready_flag_lock));
-			return (common->ready_flag == true);
+			pthread_mutex_unlock(&(common->lock));
+			return (common->start_flag == true);
 		}
-		pthread_mutex_unlock(&(common->ready_flag_lock));
+		pthread_mutex_unlock(&(common->lock));
 	}
+}
+
+void	think(t_philo *philo, t_common *common)
+{
+	printf("%10lu %d is thinking\n", \
+		get_time() - common->start_time, philo->id);
+}
+
+bool	is_finished_eating(t_philo *philo, t_common *common)
+{
+	return (common->must_eat_count != NO_COUNT \
+		&& philo->eat_count >= common->must_eat_count);
 }
 
 // 自分が死んでいない && 他者も死んでいない && must_eat_countに達していない
@@ -51,10 +61,9 @@ void	*simulation(void *data)
 
 	philo = (t_philo *)data;
 	common = philo->common;
-	//if (!wait_start(common, philo))
-	//	return (NULL);
-	philo->start_time = get_time();
-	philo->last_eat_time = philo->start_time;
+	if (!can_start(common, philo))
+		return (NULL);
+	philo->last_eat_time = common->start_time;
 	while (!is_someone_dead(common) \
 		&& !is_dead(philo, common) \
 		&& !is_finished_eating(philo, common))

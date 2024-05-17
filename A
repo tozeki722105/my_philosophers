@@ -1,1 +1,251 @@
-./philo 5 601 200 200 10
+./philo 5 602 201 200 10
+		 0 3 is thinking
+         0 3 has taken a right
+         0 3 has taken a left
+         0 3 is eating
+         0 2 is thinking
+         0 4 is thinking
+         0 5 is thinking
+         0 1 is thinking
+         1 1 has taken a right
+         1 1 has taken a left
+         1 1 is eating
+       201 3 is sleeping
+       201 4 has taken a right
+       201 4 has taken a left
+       201 4 is eating
+       202 1 is sleeping
+       202 2 has taken a right
+       202 2 has taken a left
+       202 2 is eating
+       401 3 is thinking
+       402 4 is sleeping
+       402 1 is thinking
+       402 5 has taken a right
+       402 5 has taken a left
+       402 5 is eating
+       403 2 is sleeping
+       403 3 has taken a right
+       403 3 has taken a left
+       403 3 is eating
+       602 4 is thinking
+       603 5 is sleeping
+       603 2 is thinking
+       603 1 has taken a right
+       603 1 has taken a left
+       603 1 is eating
+       604 3 is sleeping
+       604 4 has taken a right
+       604 4 has taken a left
+       604 4 is eating
+       803 5 is thinking
+       804 3 is thinking
+       804 1 is sleeping
+       804 2 has taken a right
+       804 2 has taken a left
+       804 2 is eating
+       805 4 is sleeping
+       805 5 has taken a right
+       805 5 has taken a left
+       805 5 is eating
+      1004 1 is thinking
+      1005 3 has taken a right
+      1005 3 has taken a left
+      1005 3 is eating
+      1005 2 is sleeping
+      1005 4 is thinking
+      1006 5 is sleeping
+      1006 1 has taken a right
+      1006 1 has taken a left
+      1006 1 is eating
+      1205 2 is thinking
+      1206 3 is sleeping
+      1206 5 is thinking
+      1206 4 has taken a right
+      1206 4 has taken a left
+      1206 4 is eating
+      1207 1 is sleeping
+      1207 2 has taken a right
+      1207 2 has taken a left
+      1207 2 is eating
+      1406 3 is thinking
+      1407 5 has taken a right
+      1407 5 has taken a left
+      1407 5 is eating
+      1407 4 is sleeping
+      1407 1 is thinking
+      1408 2 is sleeping
+      1408 3 has taken a right
+      1408 3 has taken a left
+      1408 3 is eating
+      1607 4 is thinking
+      1608 2 is thinking
+      1608 1 has taken a right
+      1608 1 has taken a left
+      1608 1 is eating
+      1608 5 is sleeping
+      1609 3 is sleeping
+      1609 4 has taken a right
+      1609 4 has taken a left
+      1609 4 is eating
+      1808 5 is thinking
+      1809 1 is sleeping
+      1809 3 is thinking
+      1809 2 has taken a right
+      1809 2 has taken a left
+      1809 2 is eating
+      1810 4 is sleeping
+      1810 5 has taken a right
+      1810 5 has taken a left
+      1810 5 is eating
+      2009 1 is thinking
+      2010 4 is thinking
+      2010 2 is sleeping
+      2010 3 has taken a right
+      2010 3 has taken a left
+      2010 3 is eating
+      2011 5 is sleeping
+      2011 1 has taken a right
+      2011 1 has taken a left
+      2011 1 is eating
+      2210 2 is thinking
+      2211 5 is thinking
+      2211 3 is sleeping
+      2211 4 has taken a right
+      2211 4 has taken a left
+      2211 4 is eating
+      2212 1 is sleeping
+      2212 2 has taken a right
+      2212 2 has taken a left
+      2212 2 is eating
+      2411 3 is thinking
+      2412 1 is thinking
+      2412 4 is sleeping
+      2412 5 has taken a right
+      2412 5 has taken a left
+      2412 5 is eating
+      2413 2 is sleeping
+      2413 3 has taken a right
+      2413 3 has taken a left
+      2413 3 is eating
+      2612 4 is thinking
+      2613 2 is thinking
+      2613 5 is sleeping
+      2613 1 has taken a right
+      2613 1 has taken a left
+      2613 1 is eating
+      2614 3 is sleeping
+      2614 4 has taken a right
+      2614 4 has taken a left
+      2614 4 is eating
+      2813 5 is thinking
+      2814 3 is thinking
+      2814 1 is sleeping
+      2814 2 has taken a right
+      2814 2 has taken a left
+      2814 2 is eating
+      2815 4 is sleeping
+      2815 5 has taken a right
+      2815 5 has taken a left
+      2815 5 is eating
+      3014 1 is thinking
+      3015 4 is thinking
+      3015 2 is sleeping
+      3015 3 has taken a right
+      3015 3 has taken a left
+      3015 3 is eating
+      3016 5 is sleeping
+      3016 1 has taken a right
+      3016 1 has taken a left
+      3016 1 is eating
+      3215 2 is thinking
+      3216 5 is thinking
+      3216 4 has taken a right
+      3216 4 has taken a left
+      3216 4 is eating
+      3216 3 is sleeping
+      3217 1 is sleeping
+      3217 2 has taken a right
+      3217 2 has taken a left
+      3217 2 is eating
+      3416 3 is thinking
+      3417 4 is sleeping
+      3417 1 is thinking
+      3417 5 has taken a right
+      3417 5 has taken a left
+      3417 5 is eating
+      3418 3 has taken a right
+      3418 3 has taken a left
+      3418 3 is eating
+      3418 2 is sleeping
+      3617 4 is thinking
+      3618 2 is thinking
+      3618 5 is sleeping
+      3618 1 has taken a right
+      3618 1 has taken a left
+      3618 1 is eating
+      3619 3 is sleeping
+      3619 4 has taken a right
+      3619 4 has taken a left
+      3619 4 is eating
+      3818 5 is thinking
+      3819 1 is sleeping
+      3819 3 is thinking
+      3819 2 has taken a right
+      3819 2 has taken a left
+      3819 2 is eating
+      3820 4 is sleeping
+      3820 5 has taken a right
+      3820 5 has taken a left
+      3820 5 is eating
+      4019 1 is thinking
+      4020 2 is sleeping
+      4020 3 has taken a right
+      4020 4 is thinking
+      4020 3 has taken a left
+      4020 3 is eating
+      4021 5 is sleeping
+      4021 1 has taken a right
+      4021 1 has taken a left
+      4021 1 is eating
+      4220 2 is thinking
+      4221 4 has taken a right
+      4221 4 has taken a left
+      4221 4 is eating
+      4221 5 is thinking
+      4221 3 is sleeping
+      4222 1 is sleeping
+      4222 2 has taken a right
+      4222 2 has taken a left
+      4222 2 is eating
+      4421 3 is thinking
+      4422 4 is sleeping
+      4422 5 has taken a right
+      4422 5 has taken a left
+      4422 5 is eating
+      4422 1 is thinking
+      4423 2 is sleeping
+      4423 3 has taken a right
+      4423 3 has taken a left
+      4423 3 is eating
+      4622 4 is thinking
+      4623 2 is thinking
+      4623 5 is sleeping
+      4623 1 has taken a right
+      4623 1 has taken a left
+      4623 1 is eating
+      4624 3 is sleeping
+      4624 4 has taken a right
+      4624 4 has taken a left
+      4624 4 is eating
+      4823 5 is thinking
+      4824 2 has taken a right
+      4824 2 has taken a left
+      4824 2 is eating
+      4824 1 is sleeping
+      4825 4 is sleeping
+      4825 5 has taken a right
+      4825 5 has taken a left
+      4825 5 is eating
+      5025 2 is sleeping
+      5026 5 is sleeping

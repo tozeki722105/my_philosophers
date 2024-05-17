@@ -64,9 +64,9 @@
 // 	else
 // 		common.must_eat_count = NO_COUNT;
 // 	// if (is_arg_overflow())
-// 	pthread_mutex_init((&common.someone_died_lock), NULL);
+// 	pthread_mutex_init((&common.lock), NULL);
 // 	common.someone_died = false;
-// 	common.common_start = 0;
+// 	common.start_time = 0;
 // 	return (common);
 // }
 
@@ -132,15 +132,15 @@
 // void	take_fork(t_fork *fork, t_common *common, t_philo *philo, int hand_flag)
 // {
 // 	if (hand_flag == RIGHT)
-// 		printf("%10lu %d has taken a right\n", get_time() - common->common_start, philo->id);
+// 		printf("%10lu %d has taken a right\n", get_time() - common->start_time, philo->id);
 // 	else if (hand_flag == LEFT)
-// 		printf("%10lu %d has taken a left\n", get_time() - common->common_start, philo->id);
+// 		printf("%10lu %d has taken a left\n", get_time() - common->start_time, philo->id);
 // }
 
 // void	do_eat(t_philo *philo, t_common *common)
 // {
 // 	philo->last_eat_time = get_time();
-// 	printf("%10lu %d is eating\n", philo->last_eat_time - common->common_start, philo->id);
+// 	printf("%10lu %d is eating\n", philo->last_eat_time - common->start_time, philo->id);
 //  	msleep(common->eat_time);
 // 	philo->eat_count++;
 // }
@@ -154,6 +154,6 @@
 // // TODO mutexして、someone_diedを確認し、trueだったら出力しない
 // void	do_sleep(t_philo *philo, t_common *common)
 // {
-// 	printf("%10lu %d is sleeping\n", get_time() - common->common_start, philo->id);
+// 	printf("%10lu %d is sleeping\n", get_time() - common->start_time, philo->id);
 // 	msleep(common->sleep_time);
 // }

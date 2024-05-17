@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:29:16 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 21:09:35 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/18 02:24:31 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ int	mutex_init_wrap(pthread_mutex_t *mutex)
 int pthread_create_wrap(pthread_t *thread, void *(*routine)(void *), void *arg)
 {
 	int ret;
-	static int i=0;
 	
-	if (i > 100)
-		return (1);
-	i++;
 	ret = pthread_create(thread, NULL, routine, arg);
 	if (ret != 0)
 		print_err("pthread_create error");

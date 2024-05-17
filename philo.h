@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 20:30:46 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/18 01:31:32 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@
 #include <stdbool.h>
 #include <limits.h>
 
-#define NO_COUNT			-1
-#define ERROR				-1
 #define FAIL_EXIT_STATUS	1
 #define SUCCESS_EXIT_STATUS	0
+#define NO_COUNT			-1
+#define ERROR				-1
+#define DEFAULT				2
 #define DEAD_LINE			9
-#define RIGHT		1
-#define LEFT		0
 
 typedef	unsigned long t_ms;
 
@@ -36,12 +35,11 @@ typedef struct s_common
 	int				eat_time;
 	int				sleep_time;
 	int				must_eat_count;
-	pthread_mutex_t	someone_died_lock;
+	pthread_mutex_t	lock;
 	bool			someone_died;
-	pthread_mutex_t ready_flag_lock;
-	int				ready_flag;
-	t_ms			common_start;
-	//pthread_mutex_t	common_start_lock;
+	int				start_flag;
+	t_ms			start_time;
+	int				create_count;
 } t_common;
 
 typedef struct s_fork {
@@ -59,7 +57,6 @@ typedef struct s_philo
 	t_fork		*right_fork;
 	t_fork		*left_fork;
 } t_philo;
-
 
 //main_utils.c
 void	set_null(t_common **common, t_fork **forks, t_philo **philos, pthread_t **threads);
@@ -80,6 +77,7 @@ bool	is_finished_eating(t_philo *philo, t_common *common);
 bool	is_someone_dead(t_common *common);
 void	think(t_philo *philo, t_common *common);
 void	take_eat_release_sleep(t_philo *philo, t_common *common);
+bool can_start(t_common *common, t_philo *philo);
 //simulation.c
 void	*simulation(void *data);
 //utils_libft.c

@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   simulation_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 17:27:41 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/18 02:20:49 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// die_timeが過ぎてないか確認し、overならlockし、someone_diedをtrueにする
-// die_timeが10msの時、11ms過ぎた時点でdieになる実装
-bool	is_dead(t_philo *philo, t_common *common)
-{
-	t_ms	now;
-	
-	now = get_time();
-	if (now - philo->last_eat_time > common->die_time)
-	{
-		pthread_mutex_lock(&(common->someone_died_lock));
-		common->someone_died = true;
-		pthread_mutex_unlock(&(common->someone_died_lock));
-		printf("%lu %d died\n", now - philo->start_time, philo->id);
-		return (true);
-	}
-	return (false);
-}
 
 //0.まず死んでいるか確認
 //1. A=time/9 B=time%9 
@@ -56,62 +38,56 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 		usleep(100);
 }
 
-bool	can_take_pair_forks(t_philo *philo)
+// die_timeが過ぎてないか確認し、overならlockし、someone_diedをtrueにする
+// die_timeが10msの時、11ms過ぎた時点でdieになる実装
+bool	is_dead(t_philo *philo, t_common *common)
 {
-	bool tmp1;
-	bool tmp2;
-
-	pthread_mutex_lock(&(philo->left_fork->lock));
-	tmp1 = (philo->left_fork->last_eat_id != philo->id);
-	pthread_mutex_unlock(&(philo->left_fork->lock));
-	pthread_mutex_lock(&(philo->right_fork->lock));
-	tmp2 = (philo->right_fork->last_eat_id != philo->id);
-	pthread_mutex_unlock(&(philo->right_fork->lock));
-	return (tmp1 && tmp2);
-}
-
-bool	is_finished_eating(t_philo *philo, t_common *common)
-{
-	return (common->must_eat_count != NO_COUNT \
-		&& philo->eat_count >= common->must_eat_count);
+	t_ms	now;
+	
+	now = get_time();
+	if (now - philo->last_eat_time > common->die_time)
+	{
+		pthread_mutex_lock(&(common->lock));
+		common->someone_died = true;
+		pthread_mutex_unlock(&(common->lock));
+		printf("%lu %d died\n", now - common->start_time, philo->id);
+		return (true);
+	}
+	return (false);
 }
 
 bool	is_someone_dead(t_common *common)
 {
 	bool ret;
 
-	pthread_mutex_lock(&(common->someone_died_lock));
+	pthread_mutex_lock(&(common->lock));
 	ret = (common->someone_died);
-	pthread_mutex_unlock(&(common->someone_died_lock));
+	pthread_mutex_unlock(&(common->lock));
 	return (ret);
 }
 
-void	think(t_philo *philo, t_common *common)
+static bool	can_take_fork(t_fork *fork, t_philo *philo)
 {
-	printf("%10lu %d is thinking\n", \
-		get_time() - philo->start_time, philo->id);
+	bool ret;
+
+	pthread_mutex_lock(&(fork->lock));
+	ret = (fork->last_eat_id != philo->id);
+	pthread_mutex_unlock(&(fork->lock));
+	return (ret);
 }
 
-void	take_eat_release_sleep(t_philo *philo, t_common *common)
+bool	can_take_pair_forks(t_philo *philo)
 {
-	printf("%10lu %d has taken a right\n", \
-		get_time() - philo->start_time, philo->id);
-	printf("%10lu %d has taken a left\n", \
-		get_time() - philo->start_time, philo->id);
-	philo->last_eat_time = get_time();
-	printf("%10lu %d is eating\n", \
-		philo->last_eat_time - philo->start_time, philo->id);
- 	msleep(common->eat_time, philo, common);
-	philo->eat_count++;
-	pthread_mutex_lock(&(philo->left_fork->lock));
-	philo->left_fork->last_eat_id = philo->id;
-	pthread_mutex_unlock(&(philo->left_fork->lock));
-	pthread_mutex_lock(&(philo->right_fork->lock));
-	philo->right_fork->last_eat_id = philo->id;
-	pthread_mutex_unlock(&(philo->right_fork->lock));
-	if (is_someone_dead(common))
-		return ;
-	printf("%10lu %d is sleeping\n", \
-		get_time() - philo->start_time, philo->id);
-	msleep(common->sleep_time, philo, common);
+	return (can_take_fork(philo->left_fork, philo)
+		&& can_take_fork(philo->right_fork, philo));
 }
+// bool tmp1;
+// bool tmp2;
+
+// pthread_mutex_lock(&(philo->left_fork->lock));
+// tmp1 = (philo->left_fork->last_eat_id != philo->id);
+// pthread_mutex_unlock(&(philo->left_fork->lock));
+// pthread_mutex_lock(&(philo->right_fork->lock));
+// tmp2 = (philo->right_fork->last_eat_id != philo->id);
+// pthread_mutex_unlock(&(philo->right_fork->lock));
+// return (tmp1 && tmp2);
