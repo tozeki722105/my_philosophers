@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_forks.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:06:38 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/18 03:06:26 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 20:10:46 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	set_num_in_odd_pattern(int *array, int len)
 {
-	int i;
-	int num;
+	int	i;
+	int	num;
 
 	num = 2;
 	i = 0;
@@ -33,8 +33,8 @@ static void	set_num_in_odd_pattern(int *array, int len)
 
 static void	set_num_in_even_pattern(int *array, int len)
 {
-	int i;
-	int num;
+	int	i;
+	int	num;
 
 	num = 2;
 	i = 0;
@@ -47,9 +47,9 @@ static void	set_num_in_even_pattern(int *array, int len)
 	}
 }
 
-static int *make_last_eat_id_array(int philo_count)
+static int	*make_last_eat_id_array(int philo_count)
 {
-	int *array;
+	int	*array;
 
 	array = (int *)malloc_wrap(philo_count * sizeof(int));
 	if (!array)
@@ -63,9 +63,10 @@ static int *make_last_eat_id_array(int philo_count)
 	return (array);
 }
 
-static int	set_fork_data(int philo_count, t_fork *forks_cpy, int *last_eat_id_array)
+static int	set_fork_data(int philo_count, t_fork *forks_cpy, \
+	int *last_eat_id_array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philo_count

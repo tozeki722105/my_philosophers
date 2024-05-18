@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_common.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:21:47 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 03:12:25 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/18 20:08:43 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	atoi_for_natural(const char *str)
 // initialize_threads_and_simulate()で初期化される
 bool	initialize_common(int argc, char **argv, t_common **common)
 {
-	t_common *common_cpy;
+	t_common	*common_cpy;
 
 	common_cpy = (t_common *)malloc_wrap(sizeof(t_common));
 	if (!common_cpy)
