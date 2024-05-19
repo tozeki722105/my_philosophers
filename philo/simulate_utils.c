@@ -18,8 +18,8 @@
 //3.100umごとにスリープしてlimitを確認し続ける
 void	msleep(int ms_time, t_philo *philo, t_common *common)
 {
-	t_ms limit;
-	t_ms quotient;
+	t_ms	limit;
+	t_ms	quotient;
 
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
@@ -43,7 +43,7 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 bool	is_dead(t_philo *philo, t_common *common)
 {
 	t_ms	now;
-	
+
 	now = get_time();
 	if ((int)(now - philo->last_eat_time) > common->die_time)
 	{
@@ -58,7 +58,7 @@ bool	is_dead(t_philo *philo, t_common *common)
 
 bool	is_someone_dead(t_common *common)
 {
-	bool ret;
+	bool	ret;
 
 	pthread_mutex_lock(&(common->lock));
 	ret = (common->someone_died);
@@ -68,7 +68,7 @@ bool	is_someone_dead(t_common *common)
 
 static bool	can_take_fork(t_fork *fork, t_philo *philo)
 {
-	bool ret;
+	bool	ret;
 
 	pthread_mutex_lock(&(fork->lock));
 	ret = (fork->last_eat_id != philo->id);

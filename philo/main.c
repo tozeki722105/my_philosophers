@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 02:56:16 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/19 16:12:28 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 //     system("leaks -q philo");
 // }
 
-int main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_common	*common;
 	t_fork		*forks;
 	t_philo		*philos;
 	pthread_t	*threads;
-	
+
 	set_null(&common, &forks, &philos, &threads);
 	if (!validate_args(argc, argv)
 		|| !initialize_common(argc, argv, &common)

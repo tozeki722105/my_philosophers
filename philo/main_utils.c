@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:10:04 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/18 03:19:57 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/19 18:38:20 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_null(t_common **common, t_fork **forks, t_philo **philos, pthread_t **threads)
+void	set_null(t_common **common, t_fork **forks, t_philo **philos, \
+		pthread_t **threads)
 {
 	*common = NULL;
 	*forks = NULL;
@@ -20,7 +21,8 @@ void	set_null(t_common **common, t_fork **forks, t_philo **philos, pthread_t **t
 	*threads = NULL;
 }
 
-void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threads)
+void	finalize(t_common *common, t_fork *forks, t_philo *philos, \
+		pthread_t *threads)
 {
 	if (threads)
 		free(threads);
@@ -40,7 +42,7 @@ void	finalize(t_common *common, t_fork *forks, t_philo *philos, pthread_t *threa
 
 void	wait_threads(pthread_t *threads, t_common *common)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < common->created_count)
@@ -71,7 +73,7 @@ static bool	is_num_only_str(char *str)
 
 bool	validate_args(int argc, char **argv)
 {
-	int i;
+	int		i;
 
 	if (!(argc == 5 || argc == 6))
 	{

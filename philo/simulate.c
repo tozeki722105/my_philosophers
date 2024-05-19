@@ -26,7 +26,7 @@
 // 	printf("\n\n");
 // }
 
-bool can_start(t_common *common)
+bool	can_start(t_common *common)
 {
 	while (1)
 	{
@@ -42,7 +42,7 @@ bool can_start(t_common *common)
 
 void	think(t_philo *philo, t_common *common)
 {
-	printf("%10lu %d is thinking\n", \
+	printf("%lu %d is thinking\n", \
 		get_time() - common->start_time, philo->id);
 }
 
@@ -56,8 +56,8 @@ bool	is_eating_finished(t_philo *philo, t_common *common)
 // && 両フォークにアクセスできなかったら->sleep(100)
 void	*simulate(void *data)
 {
-	t_philo *philo;
-	t_common *common;
+	t_philo		*philo;
+	t_common	*common;
 
 	philo = (t_philo *)data;
 	common = philo->common;

@@ -6,14 +6,14 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:22:44 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 20:11:22 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/19 18:39:59 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, \
-	t_philo **philo)
+		t_philo **philo)
 {
 	t_philo		*philos_cpy;
 	int			i;

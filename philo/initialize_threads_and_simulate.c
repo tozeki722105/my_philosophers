@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_threads_and_simulate.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 22:46:21 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/19 18:40:25 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ static int	create_threads(pthread_t *threads_cpy, t_philo *philos, \
 
 	i = 0;
 	while (i < philo_count \
-		&& pthread_create_wrap\
-			(&(threads_cpy[i]), simulate, (void *)&(philos[i])) == SUCCESS)
+		&& pthread_create_wrap(&(threads_cpy[i]), \
+			simulate, (void *)&(philos[i])) == SUCCESS)
 		i++;
 	return (i);
 }
 
 bool	initialize_threads_and_simulate(pthread_t **threads, \
-	t_common *common, t_philo *philos)
+		t_common *common, t_philo *philos)
 {
-	pthread_t *threads_cpy;
+	pthread_t	*threads_cpy;
 
 	threads_cpy = (pthread_t *)malloc_wrap(common->philo_count * \
 		sizeof(pthread_t));

@@ -6,13 +6,13 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:54:57 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/17 17:25:34 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/05/19 18:37:29 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 

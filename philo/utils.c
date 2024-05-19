@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 16:29:16 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 02:48:48 by toshi            ###   ########.fr       */
+/*   Updated: 2024/05/19 16:18:43 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 // ミリ秒単位で返す
-t_ms	get_time()
+t_ms	get_time(void)
 {
-	struct timeval  time;
+	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
@@ -28,8 +28,8 @@ void	print_err(char *s)
 
 void	*malloc_wrap(size_t size)
 {
-	void *ret;
-	
+	void	*ret;
+
 	ret = malloc(size);
 	if (!ret)
 		print_err("malloc error");
@@ -38,7 +38,7 @@ void	*malloc_wrap(size_t size)
 
 int	mutex_init_wrap(pthread_mutex_t *mutex)
 {
-	int ret;
+	int	ret;
 
 	ret = pthread_mutex_init(mutex, NULL);
 	if (ret != SUCCESS)
@@ -46,10 +46,10 @@ int	mutex_init_wrap(pthread_mutex_t *mutex)
 	return (ret);
 }
 
-int pthread_create_wrap(pthread_t *thread, void *(*routine)(void *), void *arg)
+int	pthread_create_wrap(pthread_t *thread, void *(*routine)(void *), void *arg)
 {
-	int ret;
-	
+	int	ret;
+
 	ret = pthread_create(thread, NULL, routine, arg);
 	if (ret != SUCCESS)
 		print_err("pthread_create error");
