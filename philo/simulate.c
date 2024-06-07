@@ -64,14 +64,14 @@ void	*simulate(void *data)
 	if (!can_start(common))
 		return (NULL);
 	philo->last_eat_time = common->start_time;
-	while (!is_someone_dead(common) \
-		&& !is_dead(philo, common) \
-		&& !is_eating_finished(philo, common))
+	while (!is_eating_finished(philo, common) \
+		&& !is_someone_dead(common) \
+		&& !is_dead(philo, common))
 	{
 		think(philo, common);
-		while (!is_someone_dead(common) \
-			&& !is_dead(philo, common) \
-			&& !can_take_pair_forks(philo))
+		while (!can_take_pair_forks(philo) \
+			&& !is_someone_dead(common) \
+			&& !is_dead(philo, common))
 			usleep(100);
 		if (is_someone_dead(common))
 			return (NULL);
