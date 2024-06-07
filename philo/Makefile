@@ -6,7 +6,7 @@
 #    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/18 03:37:55 by toshi            ###   ########.fr        #
+#    Updated: 2024/05/19 23:28:39 by toshi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS		:=	initialize_common.c \
 				utils2.c \
 				utils_libft.c 
 OUT_PATTERN	:=	
-OBJS		:=	$(patsubst %.c, %.o, $(filter-out $(OUT_PATTERN), $(SRCS)))
+OBJS		:=	$(patsubst %.c, %.o, $(SRCS))
 
 all:	$(NAME)
 
