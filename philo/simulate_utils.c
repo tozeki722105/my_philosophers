@@ -27,13 +27,13 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	if (ms_time >= DEAD_LINE)
 	{
 		quotient = ms_time / DEAD_LINE;
-		while (!is_someone_dead(common) \
-			&& !is_dead(philo, common) \
+		while (!is_someone_dead(common)
+			&& !is_dead(philo, common)
 			&& quotient--)
 			usleep(100 * DEAD_LINE);
 	}
-	while (!is_someone_dead(common) \
-		&& !is_dead(philo, common) \
+	while (!is_someone_dead(common)
+		&& !is_dead(philo, common)
 		&& get_time() < limit)
 		usleep(100);
 }

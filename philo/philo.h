@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/20 00:30:52 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/09 18:54:23 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,20 @@ typedef struct s_philo
 }	t_philo;
 
 //main_utils.c
-void	set_null(t_common **common, t_fork **forks, t_philo **philos, \
-		pthread_t **threads);
-void	finalize(t_common *common, t_fork *forks, t_philo *philos, \
-		pthread_t *threads);
+void	set_null(t_common **common, t_fork **forks, t_philo **philos,
+			pthread_t **threads);
+void	finalize(t_common *common, t_fork *forks, t_philo *philos,
+			pthread_t *threads);
 void	wait_threads(pthread_t *threads, t_common *common);
 bool	validate_args(int argc, char **argv);
 //initialize_common.c
 bool	initialize_common(int argc, char **argv, t_common **common);
 //initialize_philos.c
-bool	initialize_philos(int philo_count, t_common *common, t_fork *forks, \
-		t_philo **philo);
+bool	initialize_philos(int philo_count, t_common *common, t_fork *forks,
+			t_philo **philo);
 //initialize_threads_and_simulate.c
-bool	initialize_threads_and_simulate(pthread_t **threads, \
-		t_common *common, t_philo *philos);
+bool	initialize_threads_and_simulate(pthread_t **threads,
+			t_common *common, t_philo *philos);
 //initialize_forks.c
 bool	initialize_forks(int philo_count, t_fork **forks);
 //simulate.c
@@ -98,8 +98,8 @@ t_ms	get_time(void);
 void	print_err(char *s);
 void	*malloc_wrap(size_t size);
 int		mutex_init_wrap(pthread_mutex_t *mutex);
-int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *), \
-		void *arg);
+int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *),
+			void *arg);
 //utils2.c
 void	destroy_forks_mutex(t_fork *forks, int count);
 

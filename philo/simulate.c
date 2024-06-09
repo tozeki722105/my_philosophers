@@ -42,13 +42,13 @@ bool	can_start(t_common *common)
 
 void	think(t_philo *philo, t_common *common)
 {
-	printf("%lu %d is thinking\n", \
+	printf("%lu %d is thinking\n",
 		get_time() - common->start_time, philo->id);
 }
 
 bool	is_eating_finished(t_philo *philo, t_common *common)
 {
-	return (common->must_eat_count != NO_COUNT \
+	return (common->must_eat_count != NO_COUNT
 		&& philo->eat_count >= common->must_eat_count);
 }
 
@@ -64,13 +64,13 @@ void	*simulate(void *data)
 	if (!can_start(common))
 		return (NULL);
 	philo->last_eat_time = common->start_time;
-	while (!is_eating_finished(philo, common) \
-		&& !is_someone_dead(common) \
+	while (!is_eating_finished(philo, common)
+		&& !is_someone_dead(common)
 		&& !is_dead(philo, common))
 	{
 		think(philo, common);
-		while (!can_take_pair_forks(philo) \
-			&& !is_someone_dead(common) \
+		while (!can_take_pair_forks(philo)
+			&& !is_someone_dead(common)
 			&& !is_dead(philo, common))
 			usleep(100);
 		if (is_someone_dead(common))

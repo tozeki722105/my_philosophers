@@ -6,12 +6,20 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:06:38 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/18 20:10:46 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/09 19:02:53 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/**
+ * @brief 長さが奇数のlast_eat_id_arrayに値を入れる 
+ * 長さが5 2,2,4,5,5
+ * 長さが7 2,2,4,4,6,7,7 
+ * 長さが9 2,2,4,4,6,6,8,9,9
+ * @param array setする配列
+ * @param len 配列の長さ
+ */
 static void	set_num_in_odd_pattern(int *array, int len)
 {
 	int	i;
@@ -31,6 +39,14 @@ static void	set_num_in_odd_pattern(int *array, int len)
 	array[i] = num;
 }
 
+/**
+ * @brief 長さが偶数のlast_eat_id_arrayに値を入れる 
+ * 長さが4 2,2,4,4
+ * 長さが6 2,2,4,4,6,6
+ * 長さが8 2,2,4,4,6,6,8,8
+ * @param array setする配列
+ * @param len 配列の長さ
+ */
 static void	set_num_in_even_pattern(int *array, int len)
 {
 	int	i;
@@ -63,8 +79,8 @@ static int	*make_last_eat_id_array(int philo_count)
 	return (array);
 }
 
-static int	set_fork_data(int philo_count, t_fork *forks_cpy, \
-	int *last_eat_id_array)
+static int	set_fork_data(int philo_count, t_fork *forks_cpy,
+			int *last_eat_id_array)
 {
 	int	i;
 
@@ -78,7 +94,6 @@ static int	set_fork_data(int philo_count, t_fork *forks_cpy, \
 	return (i);
 }
 
-// memset(forks_cpy, '0', philo_count * sizeof(t_fork));
 bool	initialize_forks(int philo_count, t_fork **forks)
 {
 	t_fork	*forks_cpy;

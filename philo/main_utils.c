@@ -6,14 +6,14 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:10:04 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/19 18:38:20 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/09 19:02:05 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_null(t_common **common, t_fork **forks, t_philo **philos, \
-		pthread_t **threads)
+void	set_null(t_common **common, t_fork **forks, t_philo **philos,
+			pthread_t **threads)
 {
 	*common = NULL;
 	*forks = NULL;
@@ -21,8 +21,8 @@ void	set_null(t_common **common, t_fork **forks, t_philo **philos, \
 	*threads = NULL;
 }
 
-void	finalize(t_common *common, t_fork *forks, t_philo *philos, \
-		pthread_t *threads)
+void	finalize(t_common *common, t_fork *forks, t_philo *philos,
+			pthread_t *threads)
 {
 	if (threads)
 		free(threads);

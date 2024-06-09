@@ -6,7 +6,7 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:21:47 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 20:08:43 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/09 18:57:58 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static bool	is_arg_overflow(t_common common, int argc)
 {
-	if (common.philo_count == ERROR \
-		|| common.die_time == ERROR \
-		|| common.eat_time == ERROR \
-		|| common.sleep_time == ERROR \
+	if (common.philo_count == ERROR
+		|| common.die_time == ERROR
+		|| common.eat_time == ERROR
+		|| common.sleep_time == ERROR
 		|| (argc == 6 && common.must_eat_count == ERROR))
 	{
 		print_err("There is an argument for int_overflow");
@@ -61,7 +61,7 @@ bool	initialize_common(int argc, char **argv, t_common **common)
 		common_cpy->must_eat_count = atoi_for_natural(argv[5]);
 	else
 		common_cpy->must_eat_count = NO_COUNT;
-	if (is_arg_overflow(*common_cpy, argc) \
+	if (is_arg_overflow(*common_cpy, argc)
 		|| mutex_init_wrap(&(common_cpy->lock)) != SUCCESS)
 	{
 		free(common_cpy);
