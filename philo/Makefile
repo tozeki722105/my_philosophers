@@ -6,14 +6,14 @@
 #    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/05/19 23:28:39 by toshi            ###   ########.fr        #
+#    Updated: 2024/06/09 22:59:01 by toshi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
 
 CC			:=	cc -fsanitize=thread -g
-CFLAGS		:=	-Wall -Wextra -Werror 
+# CFLAGS		:=	-Wall -Wextra -Werror 
 
 PTHREAD_FLAGS	:=	-lpthread
 

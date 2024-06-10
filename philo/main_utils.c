@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:10:04 by tozeki            #+#    #+#             */
-/*   Updated: 2024/06/09 19:02:05 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:38:13 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ void	finalize(t_common *common, t_fork *forks, t_philo *philos,
 
 void	wait_threads(pthread_t *threads, t_common *common)
 {
+	while (!is_simulate_end(common))
+	{
+		pthread_mutex_lock(&(common->eat_up_lock));
+		if (common->eat_up_count == common->philo_count)
+		{
+			pthread_mutex_lock(&(common->lock));
+			common->simulation_run_flag = false;
+			pthread_mutex_unlock(&(common->lock));
+			pthread_mutex_unlock(&(common->eat_up_lock));
+			break ;
+		}
+		pthread_mutex_unlock(&(common->eat_up_lock));
+	}
 	int	i;
 
 	i = 0;

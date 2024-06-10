@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_threads_and_simulate.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/09 19:02:12 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:38:13 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	initialize_threads_and_simulate(pthread_t **threads,
 			philos, common->philo_count);
 	pthread_mutex_lock(&(common->lock));
 	common->start_time = get_time();
-	common->start_flag = (common->created_count == common->philo_count);
+	common->simulation_run_flag = (common->created_count == common->philo_count);
 	pthread_mutex_unlock(&(common->lock));
 	*threads = threads_cpy;
 	return (true);

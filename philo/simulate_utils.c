@@ -24,21 +24,21 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
 		return ;
-	if (ms_time >= DEAD_LINE)
-	{
-		quotient = ms_time / DEAD_LINE;
-		while (!is_someone_dead(common)
-			&& !is_dead(philo, common)
-			&& quotient--)
-			usleep(100 * DEAD_LINE);
-	}
-	while (!is_someone_dead(common)
+	// if (ms_time >= DEAD_LINE)
+	// {
+	// 	quotient = ms_time / DEAD_LINE;
+	// 	while (!is_simulate_end(common)
+	// 		&& !is_dead(philo, common)
+	// 		&& quotient--)
+	// 		usleep(100 * DEAD_LINE);
+	// }
+	while (!is_simulate_end(common)
 		&& !is_dead(philo, common)
 		&& get_time() < limit)
 		usleep(100);
 }
 
-// die_timeが過ぎてないか確認し、overならlockし、someone_diedをtrueにする
+// die_timeが過ぎてないか確認し、overならlockし、simulation_run_flagをfalseにする
 // die_timeが10msの時、11ms過ぎた時点でdieになる実装
 bool	is_dead(t_philo *philo, t_common *common)
 {
@@ -48,7 +48,7 @@ bool	is_dead(t_philo *philo, t_common *common)
 	if ((int)(now - philo->last_eat_time) > common->die_time)
 	{
 		pthread_mutex_lock(&(common->lock));
-		common->someone_died = true;
+		common->simulation_run_flag = false;
 		pthread_mutex_unlock(&(common->lock));
 		printf("%lu %d died\n", now - common->start_time, philo->id);
 		return (true);
@@ -56,12 +56,12 @@ bool	is_dead(t_philo *philo, t_common *common)
 	return (false);
 }
 
-bool	is_someone_dead(t_common *common)
+bool	is_simulate_end(t_common *common)
 {
 	bool	ret;
 
 	pthread_mutex_lock(&(common->lock));
-	ret = (common->someone_died);
+	ret = (common->simulation_run_flag == false);
 	pthread_mutex_unlock(&(common->lock));
 	return (ret);
 }

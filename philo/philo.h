@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/09 18:54:23 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/10 16:57:07 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ typedef struct s_common
 	int				sleep_time;
 	int				must_eat_count;
 	pthread_mutex_t	lock;
-	bool			someone_died;
-	int				start_flag;
+	int				simulation_run_flag;
 	t_ms			start_time;
+	pthread_mutex_t	eat_up_lock;
+	int				eat_up_count;
 	int				created_count;
 }	t_common;
 
@@ -86,7 +87,7 @@ bool	is_eating_finished(t_philo *philo, t_common *common);
 //simulate_utils.c
 void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	is_dead(t_philo *philo, t_common *common);
-bool	is_someone_dead(t_common *common);
+bool	is_simulate_end(t_common *common);
 bool	can_take_pair_forks(t_philo *philo);
 //simulate_utils2.c
 void	take_eat_release_sleep(t_philo *philo, t_common *common);
