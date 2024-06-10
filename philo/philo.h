@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/10 16:57:07 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/10 18:11:59 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 # define DEFAULT				2
 # define DEAD_LINE				9
 # define SUCCESS				0
+# define DIE					"died"
+# define TAKE_FORK				"has taken a fork"
+# define EAT					"is eating"
+# define SLEEP					"is sleeping"
+# define THINK					"is thinking"
 
 typedef unsigned long	t_ms;
 
@@ -103,5 +108,6 @@ int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *),
 			void *arg);
 //utils2.c
 void	destroy_forks_mutex(t_fork *forks, int count);
+void	put_log(t_philo *philo, t_common *common, char *status);
 
 #endif
