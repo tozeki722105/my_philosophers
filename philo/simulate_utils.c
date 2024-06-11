@@ -19,20 +19,20 @@
 void	msleep(int ms_time, t_philo *philo, t_common *common)
 {
 	t_ms	limit;
-	int		div_time;
+	int		val;
 
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
 		return ;
 	if (ms_time > ADJUSTMENT_TIME)
 	{
-		div_time = ms_time / 2;
 		while (!is_simulate_end(common)
-			&& !is_dead(philo, common)
-			&& limit - get_time() > ADJUSTMENT_TIME)
+			&& !is_dead(philo, common))
 		{
-			usleep(div_time * 1000);
-			div_time = (limit - get_time()) / 2;
+			val = limit - get_time();
+			if (val > ADJUSTMENT_TIME)
+				break ;
+			usleep((val / 2) * 1000);
 		}
 	}
 	while (!is_simulate_end(common)
