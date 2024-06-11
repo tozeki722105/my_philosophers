@@ -9,3 +9,13 @@
 
 usleepは1~7msほどラグがある
  ->11ms残して0.1msごとにusleepして確認
+
+division 30 
+差分 max30ms
+./philo 5 600 200 200 10 err2回
+
+division 20 
+差分 max30ms
+./philo 5 600 200 200 10 err2回
+
+
