@@ -47,9 +47,9 @@ bool	is_dead(t_philo *philo, t_common *common)
 	now = get_time();
 	if ((int)(now - philo->last_eat_time) > common->die_time)
 	{
-		put_log(philo, common, DIE);
 		pthread_mutex_lock(&(common->lock));
 		common->simulation_run_flag = false;
+		printf("%lu %d %s", now - common->start_time, philo->id, DIE);
 		pthread_mutex_unlock(&(common->lock));
 		return (true);
 	}

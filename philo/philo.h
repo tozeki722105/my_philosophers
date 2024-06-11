@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/10 18:11:59 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 16:08:22 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *),
 			void *arg);
 //utils2.c
 void	destroy_forks_mutex(t_fork *forks, int count);
-void	put_log(t_philo *philo, t_common *common, char *status);
+void	put_active_log(t_philo *philo, t_common *common, char *status);
 
 #endif

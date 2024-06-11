@@ -28,13 +28,16 @@
 
 bool	can_start(t_common *common)
 {
+	bool ret;
+
 	while (1)
 	{
 		pthread_mutex_lock(&(common->lock));
 		if (common->simulation_run_flag != DEFAULT)
 		{
+			ret = common->simulation_run_flag;
 			pthread_mutex_unlock(&(common->lock));
-			return (common->simulation_run_flag);
+			return (ret);
 		}
 		pthread_mutex_unlock(&(common->lock));
 	}
@@ -42,8 +45,7 @@ bool	can_start(t_common *common)
 
 void	think(t_philo *philo, t_common *common)
 {
-	// printf("%lu %d is thinking\n",
-	// 	get_time() - common->start_time, philo->id);
+	put_active_log(philo, common, THINK);
 }
 
 // eatingの回数がmeetしているか確認する
@@ -70,14 +72,13 @@ void	*simulate(void *data)
 	if (!can_start(common))
 		return (NULL);
 	philo->last_eat_time = common->start_time;
-	while (!is_simulate_end(common)
-		&& !is_dead(philo, common))
+	while (1)
 	{
 		check_eating_met(philo, common);
 		think(philo, common);
-		while (!can_take_pair_forks(philo)
-			&& !is_simulate_end(common)
-			&& !is_dead(philo, common))
+		while (!is_simulate_end(common)
+			&& !is_dead(philo, common)
+			&& !can_take_pair_forks(philo))
 			usleep(100);
 		if (is_simulate_end(common))
 			return (NULL);

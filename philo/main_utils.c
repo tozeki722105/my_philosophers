@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:10:04 by tozeki            #+#    #+#             */
-/*   Updated: 2024/06/10 16:38:13 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 16:16:41 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	wait_threads(pthread_t *threads, t_common *common)
 {
 	while (!is_simulate_end(common))
 	{
+		usleep(1000);
 		pthread_mutex_lock(&(common->eat_up_lock));
 		if (common->eat_up_count == common->philo_count)
 		{
