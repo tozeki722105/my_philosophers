@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulate_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 02:13:27 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 19:57:18 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/11 22:09:05 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	take_eat_release_sleep(t_philo *philo, t_common *common)
 	take_fork(philo, common);
 	take_fork(philo, common);
 	do_eat(philo, common);
+	if (is_simulate_end(common))
+		return ;
 	release_fork(philo->left_fork, philo);
 	release_fork(philo->right_fork, philo);
 	do_sleep(philo, common);
