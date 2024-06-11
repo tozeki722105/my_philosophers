@@ -34,7 +34,7 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	}
 	while (!is_simulate_end(common)
 		&& !is_dead(philo, common)
-		&& get_time() < limit)
+		&& get_time() <= limit)
 		usleep(100);
 }
 

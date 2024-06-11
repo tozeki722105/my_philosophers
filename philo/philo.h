@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 19:06:23 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 19:55:04 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define NO_COUNT				-1
 # define ERROR					-1
 # define DEFAULT				2
-# define LARGE_DIVISION			20
+# define LARGE_DIVISION			30
 # define SUCCESS				0
 # define DIE					"died"
 # define TAKE_FORK				"has taken a fork"
