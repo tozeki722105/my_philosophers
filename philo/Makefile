@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
+#    By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/06/11 18:55:41 by toshi            ###   ########.fr        #
+#    Updated: 2024/06/11 20:43:27 by tozeki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,13 @@ SRCS		:=	initialize_common.c \
 				initialize_philos.c \
 				initialize_threads_and_simulate.c \
 				main.c \
-				main_utils.c \
+				validate_args.c \
 				simulate.c \
 				simulate_utils.c \
 				simulate_utils2.c \
 				utils.c \
 				utils2.c \
-				utils_libft.c 
-OUT_PATTERN	:=	
+				utils_libft.c
 OBJS		:=	$(patsubst %.c, %.o, $(SRCS))
 
 all:	$(NAME)
@@ -55,11 +54,11 @@ re: fclean all
 0++:
 	./$(NAME) 200 610 200 200 5
 1:
-	./$(NAME) 5 601 200 200 10
+	./$(NAME) 5 603 200 200 10
 1+:
-	./$(NAME) 5 601 200 200 100
+	./$(NAME) 5 602 200 200 100
 1++:
-	./$(NAME) 200 601 200 200 5
+	./$(NAME) 200 603 200 200 5
 2:
 	./$(NAME) 5 600 200 200 10
 2+:
@@ -81,7 +80,7 @@ re: fclean all
 2-:
 	./$(NAME) 5 6 4 3 5
 3-:	
-	./$(NAME) 5 602 201 200 10
+	./$(NAME) 5 603 201 200 10
 
 .PHONY: all clean fclean re \
 		0 1 1+ 1++ 2 2+ 2++ 3 3+ 3++ \

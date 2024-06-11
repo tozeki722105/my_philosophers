@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_common.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:21:47 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 18:31:34 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 20:41:48 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static bool	is_arg_overflow(t_common common, int argc)
 
 // 数値だけの文字列限定、自然数限定のatoi
 // 数字以外を含んだ文字列(+/-含む)は事前にハジく必要あり
-static int	atoi_for_natural(const char *str)
+static int	atoi_natural(const char *str)
 {
 	int	num;
 
@@ -44,7 +44,7 @@ static int	atoi_for_natural(const char *str)
 	return (num);
 }
 
-// common.created_count/common.start_timeは
+// common.created_threads_count/common.start_timeは
 // initialize_threads_and_simulate()で初期化される
 bool	initialize_common(int argc, char **argv, t_common **common)
 {
@@ -53,12 +53,12 @@ bool	initialize_common(int argc, char **argv, t_common **common)
 	common_cpy = (t_common *)malloc_wrap(sizeof(t_common));
 	if (!common_cpy)
 		return (false);
-	common_cpy->philo_count = atoi_for_natural(argv[1]);
-	common_cpy->die_time = atoi_for_natural(argv[2]);
-	common_cpy->eat_time = atoi_for_natural(argv[3]);
-	common_cpy->sleep_time = atoi_for_natural(argv[4]);
+	common_cpy->philo_count = atoi_natural(argv[1]);
+	common_cpy->die_time = atoi_natural(argv[2]);
+	common_cpy->eat_time = atoi_natural(argv[3]);
+	common_cpy->sleep_time = atoi_natural(argv[4]);
 	if (argc == 6)
-		common_cpy->must_eat_count = atoi_for_natural(argv[5]);
+		common_cpy->must_eat_count = atoi_natural(argv[5]);
 	else
 		common_cpy->must_eat_count = NO_COUNT;
 	if (is_arg_overflow(*common_cpy, argc)
@@ -67,7 +67,6 @@ bool	initialize_common(int argc, char **argv, t_common **common)
 		free(common_cpy);
 		return (false);
 	}
-	mutex_init_wrap(&(common_cpy->eat_up_lock)); //エラー処理必須
 	common_cpy->simulation_run_flag = DEFAULT;
 	*common = common_cpy;
 	return (true);

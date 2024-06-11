@@ -6,7 +6,7 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:20:52 by tozeki            #+#    #+#             */
-/*   Updated: 2024/05/17 17:21:24 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/11 20:12:48 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // 数値だけの文字列限定、自然数限定のatoi
 // 数字以外を含んだ文字列(+/-含む)は事前にハジく必要あり
-int		atoi_for_natural(const char *str)
+int		atoi_natural(const char *str)
 {
 	int	num;
 
@@ -35,5 +35,5 @@ int		atoi_for_natural(const char *str)
  {
  	if (argc < 2)
  		return (1);
- 	printf("%d\n", atoi_for_natural(argv[1]));
+ 	printf("%d\n", atoi_natural(argv[1]));
  }

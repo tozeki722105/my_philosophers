@@ -26,9 +26,23 @@
 // 	printf("\n\n");
 // }
 
+// die以外のlogを出力する
+void	put_active_log(t_philo *philo, t_common *common, char *status)
+{
+	pthread_mutex_lock(&(common->lock));
+	if (!common->simulation_run_flag)
+	{
+		pthread_mutex_unlock(&(common->lock));
+		return ;
+	}
+	printf("%lu %d %s\n",
+		get_time() - common->start_time, philo->id, status);
+	pthread_mutex_unlock(&(common->lock));
+}
+
 bool	can_start(t_common *common)
 {
-	bool ret;
+	bool	ret;
 
 	while (1)
 	{
@@ -51,12 +65,12 @@ void	think(t_philo *philo, t_common *common)
 // eatingの回数がmeetしているか確認する
 void	check_eating_met(t_philo *philo, t_common *common)
 {
-	if (common->must_eat_count != NO_COUNT 
+	if (common->must_eat_count != NO_COUNT
 		&& philo->eat_count == common->must_eat_count)
 	{
-		pthread_mutex_lock(&(common->eat_up_lock));
+		pthread_mutex_lock(&(common->lock));
 		common->eat_up_count++;
-		pthread_mutex_unlock(&(common->eat_up_lock));
+		pthread_mutex_unlock(&(common->lock));
 	}
 }
 

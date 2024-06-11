@@ -6,7 +6,7 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 19:55:04 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/11 20:41:48 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ typedef struct s_common
 	int				eat_time;
 	int				sleep_time;
 	int				must_eat_count;
+	int				created_threads_count;
 	pthread_mutex_t	lock;
 	int				simulation_run_flag;
 	t_ms			start_time;
-	pthread_mutex_t	eat_up_lock;
 	int				eat_up_count;
-	int				created_count;
 }	t_common;
 
 typedef struct s_fork {
@@ -86,9 +85,10 @@ bool	initialize_threads_and_simulate(pthread_t **threads,
 bool	initialize_forks(int philo_count, t_fork **forks);
 //simulate.c
 void	*simulate(void *data);
+void	put_active_log(t_philo *philo, t_common *common, char *status);
 bool	can_start(t_common *common);
 void	think(t_philo *philo, t_common *common);
-bool	is_eating_finished(t_philo *philo, t_common *common);
+void	check_eating_met(t_philo *philo, t_common *common);
 //simulate_utils.c
 void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	is_dead(t_philo *philo, t_common *common);
@@ -108,6 +108,5 @@ int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *),
 			void *arg);
 //utils2.c
 void	destroy_forks_mutex(t_fork *forks, int count);
-void	put_active_log(t_philo *philo, t_common *common, char *status);
 
 #endif

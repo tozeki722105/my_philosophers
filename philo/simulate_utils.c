@@ -81,13 +81,3 @@ bool	can_take_pair_forks(t_philo *philo)
 	return (can_take_fork(philo->left_fork, philo)
 		&& can_take_fork(philo->right_fork, philo));
 }
-// bool tmp1;
-// bool tmp2;
-
-// pthread_mutex_lock(&(philo->left_fork->lock));
-// tmp1 = (philo->left_fork->last_eat_id != philo->id);
-// pthread_mutex_unlock(&(philo->left_fork->lock));
-// pthread_mutex_lock(&(philo->right_fork->lock));
-// tmp2 = (philo->right_fork->last_eat_id != philo->id);
-// pthread_mutex_unlock(&(philo->right_fork->lock));
-// return (tmp1 && tmp2);
