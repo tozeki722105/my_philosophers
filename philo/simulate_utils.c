@@ -24,14 +24,14 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
 		return ;
-	// if (ms_time >= DEAD_LINE)
-	// {
-	// 	quotient = ms_time / DEAD_LINE;
-	// 	while (!is_simulate_end(common)
-	// 		&& !is_dead(philo, common)
-	// 		&& quotient--)
-	// 		usleep(100 * DEAD_LINE);
-	// }
+	if (ms_time > LARGE_DIVISION)
+	{
+		quotient = ms_time / LARGE_DIVISION;
+		while (!is_simulate_end(common)
+			&& !is_dead(philo, common)
+			&& quotient--)
+			usleep(100 * LARGE_DIVISION);
+	}
 	while (!is_simulate_end(common)
 		&& !is_dead(philo, common)
 		&& get_time() < limit)
@@ -49,7 +49,7 @@ bool	is_dead(t_philo *philo, t_common *common)
 	{
 		pthread_mutex_lock(&(common->lock));
 		common->simulation_run_flag = false;
-		printf("%lu %d %s", now - common->start_time, philo->id, DIE);
+		printf("%lu %d %s\n", now - common->start_time, philo->id, DIE);
 		pthread_mutex_unlock(&(common->lock));
 		return (true);
 	}

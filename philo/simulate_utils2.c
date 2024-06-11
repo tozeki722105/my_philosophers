@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 02:13:27 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 16:51:31 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 18:13:12 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	take_fork(t_philo *philo, t_common *common)
 
 void	take_eat_release_sleep(t_philo *philo, t_common *common)
 {
-	
 	take_fork(philo, common);//put_active_log
 	take_fork(philo, common);//put_active_log
 	do_eat(philo, common);//put_active_log sleep

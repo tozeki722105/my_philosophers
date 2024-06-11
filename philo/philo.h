@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 16:08:22 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 18:16:01 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define NO_COUNT				-1
 # define ERROR					-1
 # define DEFAULT				2
-# define DEAD_LINE				9
+# define LARGE_DIVISION			90
 # define SUCCESS				0
 # define DIE					"died"
 # define TAKE_FORK				"has taken a fork"
