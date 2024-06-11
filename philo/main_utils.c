@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:10:04 by tozeki            #+#    #+#             */
-/*   Updated: 2024/06/11 16:16:41 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 18:31:34 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ static bool	is_num_only_str(char *str)
 {
 	if (*str == '\0')
 	{
-		print_err("Contains an empty string");
+		put_err("Contains an empty string");
 		return (false);
 	}
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
 		{
-			print_err("Contains a non-numeric value");
+			put_err("Contains a non-numeric value");
 			return (false);
 		}
 		str++;
@@ -91,7 +91,7 @@ bool	validate_args(int argc, char **argv)
 
 	if (!(argc == 5 || argc == 6))
 	{
-		print_err("Incorrect number of arguments");
+		put_err("Incorrect number of arguments");
 		return (false);
 	}
 	i = 1;

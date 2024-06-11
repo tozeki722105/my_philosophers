@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 18:16:01 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/11 19:06:23 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define NO_COUNT				-1
 # define ERROR					-1
 # define DEFAULT				2
-# define LARGE_DIVISION			90
+# define LARGE_DIVISION			20
 # define SUCCESS				0
 # define DIE					"died"
 # define TAKE_FORK				"has taken a fork"
@@ -101,7 +101,7 @@ void	ft_putendl(char *s, int fd);
 int		ft_isdigit(int c);
 //utils.c
 t_ms	get_time(void);
-void	print_err(char *s);
+void	put_err(char *s);
 void	*malloc_wrap(size_t size);
 int		mutex_init_wrap(pthread_mutex_t *mutex);
 int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *),
