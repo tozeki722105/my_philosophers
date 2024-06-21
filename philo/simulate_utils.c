@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulate_utils.c                                 :+:      :+:    :+:   */
+/*   simulate_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/05/18 02:20:49 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/21 16:39:49 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	msleep(int ms_time, t_philo *philo, t_common *common)
 {
 	t_ms	limit;
-	int		val;
+	int		div_time;
 
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
@@ -29,15 +29,16 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 		while (!is_simulate_end(common)
 			&& !is_dead(philo, common))
 		{
-			val = limit - get_time();
-			if (val > ADJUSTMENT_TIME)
+			div_time = (limit - get_time());
+			if (div_time <= ADJUSTMENT_TIME)
 				break ;
-			usleep((val / 2) * 1000);
+			usleep((div_time/2) * 1000);
 		}
 	}
-	while (!is_simulate_end(common)
-		&& !is_dead(philo, common)
-		&& get_time() <= limit)
+	// while (!is_simulate_end(common)
+	// 	&& !is_dead(philo, common)
+	// 	&& get_time() <= limit)
+	while (get_time() <= limit)
 		usleep(100);
 }
 
@@ -45,14 +46,11 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 // die_timeが10msの時、11ms過ぎた時点でdieになる実装
 bool	is_dead(t_philo *philo, t_common *common)
 {
-	t_ms	now;
-
-	now = get_time();
-	if ((int)(now - philo->last_eat_time) > common->die_time)
+	if ((int)(get_time() - philo->last_eat_time) > common->die_time)
 	{
 		pthread_mutex_lock(&(common->lock));
 		common->simulation_run_flag = false;
-		printf("%lu %d %s\n", now - common->start_time, philo->id, DIE);
+		printf("%lu %d %s\n", get_time() - common->start_time, philo->id, DIE);
 		pthread_mutex_unlock(&(common->lock));
 		return (true);
 	}
