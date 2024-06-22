@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 02:13:27 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/14 16:44:55 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/22 19:13:47 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	take_eat_release_sleep(t_philo *philo, t_common *common)
 	take_fork(philo, common);
 	take_fork(philo, common);
 	do_eat(philo, common);
-	if (is_simulate_end(common))
+	if (is_simulate_end(common) || is_dead(philo, common))
 		return ;
 	release_fork(philo->left_fork, philo);
 	release_fork(philo->right_fork, philo);

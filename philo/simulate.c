@@ -86,7 +86,8 @@ void	*simulate(void *data)
 	if (!can_start(common))
 		return (NULL);
 	philo->last_eat_time = common->start_time;
-	while (!is_simulate_end(common))
+	while (!is_simulate_end(common)
+		&& !is_dead(philo, common))
 	{
 		check_eating_met(philo, common);
 		think(philo, common);

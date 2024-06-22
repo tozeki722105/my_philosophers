@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/21 16:39:49 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/22 21:49:48 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 			usleep((div_time/2) * 1000);
 		}
 	}
-	// while (!is_simulate_end(common)
-	// 	&& !is_dead(philo, common)
-	// 	&& get_time() <= limit)
 	while (get_time() <= limit)
 		usleep(100);
 }
