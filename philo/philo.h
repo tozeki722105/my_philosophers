@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/23 22:49:00 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/24 04:16:06 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ bool	initialize_forks(int philo_count, t_fork **forks);
 void	*simulate(void *data);
 //simulate_utils.c
 bool	is_dead(t_philo *philo, t_common *common);
-bool	is_simulate_end(t_common *common);
 void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop);
 void	msleep(int ms_time, t_philo *philo, t_common *common);
 //simulate_utils2.c
@@ -97,6 +96,7 @@ int		mutex_init_wrap(pthread_mutex_t *mutex);
 int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *),
 			void *arg);
 //utils2.c
+bool	is_simulate_end(t_common *common);
 void	destroy_forks_mutex(t_fork *forks, int count);
 //varidate_args.c
 bool	validate_args(int argc, char **argv);

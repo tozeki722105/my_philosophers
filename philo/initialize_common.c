@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_common.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:21:47 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 20:41:48 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/24 04:11:03 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ bool	initialize_common(int argc, char **argv, t_common **common)
 		return (false);
 	}
 	common_cpy->simulation_run_flag = DEFAULT;
+	common_cpy->eat_up_count = 0;
 	*common = common_cpy;
 	return (true);
 }
