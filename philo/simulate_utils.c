@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/23 22:57:11 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/24 00:49:44 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,27 @@ void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_sto
 
 void	msleep(int ms_time, t_philo *philo, t_common *common)
 {
-	t_ms	limit;
-	int		remained_time;
+	t_ms		limit;
+    useconds_t 	remained_time;
 
-	limit = get_time() + ms_time;
-	if (ms_time == 0)
-		return ;
-	if (ms_time > ADJUSTMENT_TIME)
-	{
-		while (!is_simulate_end(common)
-			&& !is_dead(philo, common))
-		{
-			remained_time = (limit - get_time());
-			if (remained_time <= ADJUSTMENT_TIME)
-				break ;
-			usleep((remained_time / 2) * 1000);
-		}
-	}
-	while (get_time() <= limit)
-		usleep(100);
+    limit = get_time() + ms_time;
+    if (ms_time == 0)
+        return ;
+    if (ms_time > ADJUSTMENT_TIME)
+    {
+        while (!is_simulate_end(common)
+            && !is_dead(philo, common))
+        {
+            remained_time = (limit - get_time());
+            if (remained_time <= ADJUSTMENT_TIME)
+                break ;
+            usleep((remained_time / 2) * 1000);
+        }
+    }
+    if (is_simulate_end(common) || is_dead(philo, common))
+        return ;
+    while (get_time() <= limit)
+        usleep(100);
 }
 
 // static void	print_philo(t_philo *philo)
