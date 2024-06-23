@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/23 19:26:08 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/23 22:49:00 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,25 @@ typedef struct s_philo
 	t_fork		*left_fork;
 }	t_philo;
 
-//main_utils.c
-void	set_null(t_common **common, t_fork **forks, t_philo **philos,
-			pthread_t **threads);
-void	finalize(t_common *common, t_fork *forks, t_philo *philos,
-			pthread_t *threads);
-void	wait_threads(pthread_t *threads, t_common *common);
-bool	validate_args(int argc, char **argv);
 //initialize_common.c
 bool	initialize_common(int argc, char **argv, t_common **common);
 //initialize_philos.c
 bool	initialize_philos(int philo_count, t_common *common, t_fork *forks,
 			t_philo **philo);
 //initialize_threads_and_simulate.c
-bool	initialize_threads_and_simulate(pthread_t **threads,
-			t_common *common, t_philo *philos);
+bool	initialize_threads_and_simulate(t_common *common,
+			t_philo *philos, pthread_t **threads);
 //initialize_forks.c
 bool	initialize_forks(int philo_count, t_fork **forks);
 //simulate.c
 void	*simulate(void *data);
-void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop);
-bool	can_start(t_common *common);
-void	think(t_philo *philo, t_common *common);
-void	check_eating_met(t_philo *philo, t_common *common);
 //simulate_utils.c
-void	msleep(int ms_time, t_philo *philo, t_common *common);
 bool	is_dead(t_philo *philo, t_common *common);
 bool	is_simulate_end(t_common *common);
-bool	can_take_pair_forks(t_philo *philo);
+void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop);
+void	msleep(int ms_time, t_philo *philo, t_common *common);
 //simulate_utils2.c
+void	think(t_philo *philo, t_common *common);
 void	take_eat_release_sleep(t_philo *philo, t_common *common);
 //utils_libft.c
 void	ft_putendl(char *s, int fd);
@@ -108,5 +98,7 @@ int		pthread_create_wrap(pthread_t *thread, void *(*routine)(void *),
 			void *arg);
 //utils2.c
 void	destroy_forks_mutex(t_fork *forks, int count);
+//varidate_args.c
+bool	validate_args(int argc, char **argv);
 
 #endif

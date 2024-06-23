@@ -12,39 +12,7 @@
 
 #include "philo.h"
 
-// static void	print_philo(t_philo *philo)
-// {
-// 	printf("philo_id=%d;\n", philo->id);
-// 	printf("laste_time=%lu;\n", philo->last_eat_time);
-// 	printf("die_time=%d;\n", philo->common->die_time);
-// 	printf("eat_time=%d;\n", philo->common->eat_time);
-// 	printf("sleep_time=%d;\n", philo->common->sleep_time);
-// 	printf("must_eat_count=%d;\n", philo->common->must_eat_count);
-// 	printf("eat_count=%d;\n", philo->eat_count);
-// 	printf("right_fork.last_eat_id=%d;\n", philo->right_fork->last_eat_id);
-// 	printf("left_fork.last_eat_id=%d;\n", philo->left_fork->last_eat_id);
-// 	printf("\n\n");
-// }
-
-// die以外のlogを出力する
-void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop)
-{
-	static pthread_mutex_t put_lock = PTHREAD_MUTEX_INITIALIZER;
-	static bool active_flag = true;
-
-	pthread_mutex_lock(&put_lock);
-	if (!active_flag)
-	{
-		pthread_mutex_unlock(&put_lock);
-		return ;
-	}
-	printf("%lu %d %s\n",
-		get_time() - common->start_time, philo->id, status);
-	active_flag = !put_stop;
-	pthread_mutex_unlock(&put_lock);
-}
-
-bool	can_start(t_common *common)
+static bool	can_start(t_common *common)
 {
 	bool	ret;
 
@@ -61,13 +29,8 @@ bool	can_start(t_common *common)
 	}
 }
 
-void	think(t_philo *philo, t_common *common)
-{
-	put_active_log(philo, common, THINK, false);
-}
-
 // eatingの回数がmeetしているか確認する
-void	check_eating_met(t_philo *philo, t_common *common)
+static void	check_eating_met(t_philo *philo, t_common *common)
 {
 	if (common->must_eat_count != NO_COUNT
 		&& philo->eat_count == common->must_eat_count)
@@ -78,8 +41,22 @@ void	check_eating_met(t_philo *philo, t_common *common)
 	}
 }
 
-// 自分が死んでいない && 他者も死んでいない && must_eat_countに達していない
-// && 両フォークにアクセスできなかったら->sleep(100)
+static bool	can_take_fork(t_fork *fork, t_philo *philo)
+{
+	bool	ret;
+
+	pthread_mutex_lock(&(fork->lock));
+	ret = (fork->last_eat_id != philo->id);
+	pthread_mutex_unlock(&(fork->lock));
+	return (ret);
+}
+
+static bool	can_take_pair_forks(t_philo *philo)
+{	
+	return (can_take_fork(philo->left_fork, philo)
+		&& can_take_fork(philo->right_fork, philo));
+}
+
 void	*simulate(void *data)
 {
 	t_philo		*philo;

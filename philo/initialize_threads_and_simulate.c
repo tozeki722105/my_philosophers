@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 22:57:17 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 22:09:42 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/23 22:31:54 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static int	create_threads(pthread_t *threads_cpy, t_philo *philos,
 	return (i);
 }
 
-bool	initialize_threads_and_simulate(pthread_t **threads,
-			t_common *common, t_philo *philos)
+bool	initialize_threads_and_simulate(t_common *common,
+			t_philo *philos, pthread_t **threads)
 {
 	pthread_t	*threads_cpy;
 

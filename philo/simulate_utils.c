@@ -6,41 +6,12 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/22 22:52:47 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/23 22:57:11 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//0.まず死んでいるか確認
-//1. A=time/9 B=time%9 
-//2.9msごとにスリープ->死んでいるか確認 これをA回
-//3.100umごとにスリープしてlimitを確認し続ける
-void	msleep(int ms_time, t_philo *philo, t_common *common)
-{
-	t_ms	limit;
-	int		remained_time;
-
-	limit = get_time() + ms_time;
-	if (ms_time == 0)
-		return ;
-	if (ms_time > ADJUSTMENT_TIME)
-	{
-		while (!is_simulate_end(common)
-			&& !is_dead(philo, common))
-		{
-			remained_time = (limit - get_time());
-			if (remained_time <= ADJUSTMENT_TIME)
-				break ;
-			usleep((remained_time / 2) * 1000);
-		}
-	}
-	while (get_time() <= limit)
-		usleep(100);
-}
-
-// die_timeが過ぎてないか確認し、overならlockし、simulation_run_flagをfalseにする
-// die_timeが10msの時、11ms過ぎた時点でdieになる実装
 bool	is_dead(t_philo *philo, t_common *common)
 {
 	if ((int)(get_time() - philo->last_eat_time) > common->die_time)
@@ -64,18 +35,56 @@ bool	is_simulate_end(t_common *common)
 	return (ret);
 }
 
-static bool	can_take_fork(t_fork *fork, t_philo *philo)
+void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop)
 {
-	bool	ret;
+	static pthread_mutex_t put_lock = PTHREAD_MUTEX_INITIALIZER;
+	static bool active_flag = true;
 
-	pthread_mutex_lock(&(fork->lock));
-	ret = (fork->last_eat_id != philo->id);
-	pthread_mutex_unlock(&(fork->lock));
-	return (ret);
+	pthread_mutex_lock(&put_lock);
+	if (!active_flag)
+	{
+		pthread_mutex_unlock(&put_lock);
+		return ;
+	}
+	printf("%lu %d %s\n",
+		get_time() - common->start_time, philo->id, status);
+	active_flag = !put_stop;
+	pthread_mutex_unlock(&put_lock);
 }
 
-bool	can_take_pair_forks(t_philo *philo)
+void	msleep(int ms_time, t_philo *philo, t_common *common)
 {
-	return (can_take_fork(philo->left_fork, philo)
-		&& can_take_fork(philo->right_fork, philo));
+	t_ms	limit;
+	int		remained_time;
+
+	limit = get_time() + ms_time;
+	if (ms_time == 0)
+		return ;
+	if (ms_time > ADJUSTMENT_TIME)
+	{
+		while (!is_simulate_end(common)
+			&& !is_dead(philo, common))
+		{
+			remained_time = (limit - get_time());
+			if (remained_time <= ADJUSTMENT_TIME)
+				break ;
+			usleep((remained_time / 2) * 1000);
+		}
+	}
+	while (get_time() <= limit)
+		usleep(100);
 }
+
+// static void	print_philo(t_philo *philo)
+// {
+// 	printf("philo_id=%d;\n", philo->id);
+// 	printf("laste_time=%lu;\n", philo->last_eat_time);
+// 	printf("die_time=%d;\n", philo->common->die_time);
+// 	printf("eat_time=%d;\n", philo->common->eat_time);
+// 	printf("sleep_time=%d;\n", philo->common->sleep_time);
+// 	printf("must_eat_count=%d;\n", philo->common->must_eat_count);
+// 	printf("eat_count=%d;\n", philo->eat_count);
+// 	printf("right_fork.last_eat_id=%d;\n", philo->right_fork->last_eat_id);
+// 	printf("left_fork.last_eat_id=%d;\n", philo->left_fork->last_eat_id);
+// 	printf("\n\n");
+// }

@@ -6,11 +6,16 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 02:13:27 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/23 19:29:53 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/23 19:33:52 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	think(t_philo *philo, t_common *common)
+{
+	put_active_log(philo, common, THINK, false);
+}
 
 static void	do_eat(t_philo *philo, t_common *common)
 {
@@ -33,15 +38,10 @@ static void	do_sleep(t_philo *philo, t_common *common)
 	msleep(common->sleep_time, philo, common);
 }
 
-static void	take_fork(t_philo *philo, t_common *common)
-{
-	put_active_log(philo, common, TAKE_FORK, false);
-}
-
 void	take_eat_release_sleep(t_philo *philo, t_common *common)
 {
-	take_fork(philo, common);
-	take_fork(philo, common);
+	put_active_log(philo, common, TAKE_FORK, false);
+	put_active_log(philo, common, TAKE_FORK, false);
 	do_eat(philo, common);
 	if (is_simulate_end(common) || is_dead(philo, common))
 		return ;

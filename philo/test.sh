@@ -8,7 +8,7 @@ for i in {1..10}; do
     # 実行前にi回目を出力
     echo "${i}回目" >> fail.log
     # philoプログラムを実行し、出力から"die"が含まれる行を抽出してfail.logに書き込む
-    ./philo 5 605 200 200 100 | grep "die" >> fail.log
+    ./philo 5 605 200 200 10 | grep "die" >> fail.log
 done
 
 echo "Completed. Check fail.log for results."

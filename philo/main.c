@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/11 20:41:48 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/06/23 22:47:30 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //     system("leaks -q philo");
 // }
 
-void	set_null(t_common **common, t_fork **forks, t_philo **philos,
+static void	set_null(t_common **common, t_fork **forks, t_philo **philos,
 			pthread_t **threads)
 {
 	*common = NULL;
@@ -26,7 +26,7 @@ void	set_null(t_common **common, t_fork **forks, t_philo **philos,
 	*threads = NULL;
 }
 
-void	finalize(t_common *common, t_fork *forks, t_philo *philos,
+static void	finalize(t_common *common, t_fork *forks, t_philo *philos,
 			pthread_t *threads)
 {
 	if (threads)
@@ -45,7 +45,7 @@ void	finalize(t_common *common, t_fork *forks, t_philo *philos,
 	}
 }
 
-void	wait_threads(pthread_t *threads, t_common *common)
+static void	wait_threads(pthread_t *threads, t_common *common)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv)
 		|| !initialize_common(argc, argv, &common)
 		|| !initialize_forks(common->philo_count, &forks)
 		|| !initialize_philos(common->philo_count, common, forks, &philos)
-		|| !initialize_threads_and_simulate(&threads, common, philos))
+		|| !initialize_threads_and_simulate(common, philos, &threads))
 	{
 		finalize(common, forks, philos, threads);
 		return (FAIL_EXIT_STATUS);
