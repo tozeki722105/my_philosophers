@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/21 21:04:12 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/23 19:26:08 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool	initialize_threads_and_simulate(pthread_t **threads,
 bool	initialize_forks(int philo_count, t_fork **forks);
 //simulate.c
 void	*simulate(void *data);
-void	put_active_log(t_philo *philo, t_common *common, char *status);
+void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop);
 bool	can_start(t_common *common);
 void	think(t_philo *philo, t_common *common);
 void	check_eating_met(t_philo *philo, t_common *common);

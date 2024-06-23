@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/22 21:49:48 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/22 22:52:47 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	msleep(int ms_time, t_philo *philo, t_common *common)
 {
 	t_ms	limit;
-	int		div_time;
+	int		remained_time;
 
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
@@ -29,10 +29,10 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 		while (!is_simulate_end(common)
 			&& !is_dead(philo, common))
 		{
-			div_time = (limit - get_time());
-			if (div_time <= ADJUSTMENT_TIME)
+			remained_time = (limit - get_time());
+			if (remained_time <= ADJUSTMENT_TIME)
 				break ;
-			usleep((div_time/2) * 1000);
+			usleep((remained_time / 2) * 1000);
 		}
 	}
 	while (get_time() <= limit)
@@ -45,9 +45,9 @@ bool	is_dead(t_philo *philo, t_common *common)
 {
 	if ((int)(get_time() - philo->last_eat_time) > common->die_time)
 	{
+		put_active_log(philo, common, DIE, true);
 		pthread_mutex_lock(&(common->lock));
 		common->simulation_run_flag = false;
-		printf("%lu %d %s\n", get_time() - common->start_time, philo->id, DIE);
 		pthread_mutex_unlock(&(common->lock));
 		return (true);
 	}

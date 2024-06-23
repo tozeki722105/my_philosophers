@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 02:13:27 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/22 19:13:47 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/23 19:29:53 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	do_eat(t_philo *philo, t_common *common)
 {
 	philo->last_eat_time = get_time();
-	put_active_log(philo, common, EAT);
+	put_active_log(philo, common, EAT, false);
 	msleep(common->eat_time, philo, common);
 	philo->eat_count++;
 }
@@ -29,13 +29,13 @@ static void	release_fork(t_fork *fork, t_philo *philo)
 
 static void	do_sleep(t_philo *philo, t_common *common)
 {
-	put_active_log(philo, common, SLEEP);
+	put_active_log(philo, common, SLEEP, false);
 	msleep(common->sleep_time, philo, common);
 }
 
 static void	take_fork(t_philo *philo, t_common *common)
 {
-	put_active_log(philo, common, TAKE_FORK);
+	put_active_log(philo, common, TAKE_FORK, false);
 }
 
 void	take_eat_release_sleep(t_philo *philo, t_common *common)
