@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/24 00:49:44 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/24 00:59:04 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_dead(t_philo *philo, t_common *common)
 {
-	if ((int)(get_time() - philo->last_eat_time) > common->die_time)
+	if (get_time() - philo->last_eat_time > (t_ms)common->die_time)
 	{
 		put_active_log(philo, common, DIE, true);
 		pthread_mutex_lock(&(common->lock));
