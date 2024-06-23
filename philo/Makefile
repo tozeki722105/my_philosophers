@@ -6,16 +6,16 @@
 #    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/06/24 00:52:25 by toshi            ###   ########.fr        #
+#    Updated: 2024/06/24 03:34:17 by toshi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
 
 CC			:=	cc -fsanitize=thread -g
-CFLAGS		:=	-Wall -Wextra -Werror 
+# CFLAGS		:=	-Wall -Wextra -Werror
 
-PTHREAD_FLAGS	:=	-lpthread
+# PTHREAD_FLAGS	:=	-lpthread
 
 SRCS		:=	initialize_common.c \
 				initialize_forks.c \
