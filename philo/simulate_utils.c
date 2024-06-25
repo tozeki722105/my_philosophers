@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/24 04:15:03 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/25 19:45:50 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ bool	is_dead(t_philo *philo, t_common *common)
 		put_active_log(philo, common, DIE, true);
 		pthread_mutex_lock(&(common->lock));
 		common->simulation_run_flag = false;
-		// printf("%lu %d %s\n", get_time() - common->start_time, philo->id, DIE);
 		pthread_mutex_unlock(&(common->lock));
 		return (true);
 	}
@@ -41,10 +40,6 @@ void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_sto
 		get_time() - common->start_time, philo->id, status);
 	active_flag = !put_stop;
 	pthread_mutex_unlock(&put_lock);
-	// pthread_mutex_lock(&(common->lock));
-	// if (common->simulation_run_flag)
-	// 	printf("%lu %d %s\n", get_time() - common->start_time, philo->id, status);
-	// pthread_mutex_unlock(&(common->lock));
 }
 
 void	msleep(int ms_time, t_philo *philo, t_common *common)
@@ -70,10 +65,14 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
         return ;
     while (get_time() <= limit)
         usleep(100);
-	// while (!is_simulate_end(common) && !is_dead(philo, common) && get_time() <= limit)
-	// 	usleep(100);
 }
 
+// pthread_mutex_lock(&(common->lock));
+// if (common->simulation_run_flag)
+// 	printf("%lu %d %s\n", get_time() - common->start_time, philo->id, status);
+// pthread_mutex_unlock(&(common->lock));
+// while (!is_simulate_end(common) && !is_dead(philo, common) && get_time() <= limit)
+// 	usleep(100);
 // static void	print_philo(t_philo *philo)
 // {
 // 	printf("philo_id=%d;\n", philo->id);
