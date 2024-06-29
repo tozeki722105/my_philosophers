@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulate_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/25 19:45:50 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/29 20:57:37 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ bool	is_dead(t_philo *philo, t_common *common)
 	return (false);
 }
 
-void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop)
+void	put_active_log(t_philo *philo, t_common *common, char *status,
+			bool put_stop)
 {
-	static pthread_mutex_t put_lock = PTHREAD_MUTEX_INITIALIZER;
-	static bool active_flag = true;
+	static pthread_mutex_t	put_lock = PTHREAD_MUTEX_INITIALIZER;
+	static bool				active_flag = true;
 
 	pthread_mutex_lock(&put_lock);
 	if (!active_flag)
@@ -44,35 +45,29 @@ void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_sto
 
 void	msleep(int ms_time, t_philo *philo, t_common *common)
 {
-	t_ms		limit;
-    int 	remained_time;
+	t_ms	limit;
+	int		remained_time;
 
-    limit = get_time() + ms_time;
-    if (ms_time == 0)
-        return ;
-    if (ms_time > ADJUSTMENT_TIME)
-    {
-        while (!is_simulate_end(common)
-            && !is_dead(philo, common))
-        {
-            remained_time = (limit - get_time());
-            if (remained_time <= ADJUSTMENT_TIME)
-                break ;
-            usleep((remained_time / 2) * 1000);
-        }
-    }
-    if (is_simulate_end(common) || is_dead(philo, common))
-        return ;
-    while (get_time() <= limit)
-        usleep(100);
+	limit = get_time() + ms_time;
+	if (ms_time == 0)
+		return ;
+	if (ms_time > ADJUSTMENT_TIME)
+	{
+		while (!is_simulate_end(common)
+			&& !is_dead(philo, common))
+		{
+			remained_time = (limit - get_time());
+			if (remained_time <= ADJUSTMENT_TIME)
+				break ;
+			usleep((remained_time / 2) * 1000);
+		}
+	}
+	if (is_simulate_end(common) || is_dead(philo, common))
+		return ;
+	while (get_time() <= limit)
+		usleep(100);
 }
 
-// pthread_mutex_lock(&(common->lock));
-// if (common->simulation_run_flag)
-// 	printf("%lu %d %s\n", get_time() - common->start_time, philo->id, status);
-// pthread_mutex_unlock(&(common->lock));
-// while (!is_simulate_end(common) && !is_dead(philo, common) && get_time() <= limit)
-// 	usleep(100);
 // static void	print_philo(t_philo *philo)
 // {
 // 	printf("philo_id=%d;\n", philo->id);

@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: toshi <toshi@student.42.fr>                +#+  +:+       +#+         #
+#    By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 21:32:36 by toshi             #+#    #+#              #
-#    Updated: 2024/06/25 19:50:14 by toshi            ###   ########.fr        #
+#    Updated: 2024/06/29 20:43:25 by tozeki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	philo
 
 CC			:=	cc 
-CFLAGS		:=	-Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS		:=	-Wall -Wextra -Werror
 
 SRCS		:=	initialize_common.c \
 				initialize_forks.c \

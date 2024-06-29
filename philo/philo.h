@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/24 04:16:06 by toshi            ###   ########.fr       */
+/*   Updated: 2024/06/29 20:30:51 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ bool	initialize_forks(int philo_count, t_fork **forks);
 void	*simulate(void *data);
 //simulate_utils.c
 bool	is_dead(t_philo *philo, t_common *common);
-void	put_active_log(t_philo *philo, t_common *common, char *status, bool put_stop);
+void	put_active_log(t_philo *philo, t_common *common, char *status,
+			bool put_stop);
 void	msleep(int ms_time, t_philo *philo, t_common *common);
 //simulate_utils2.c
 void	think(t_philo *philo, t_common *common);
