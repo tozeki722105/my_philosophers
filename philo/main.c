@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:12:30 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/25 19:44:25 by toshi            ###   ########.fr       */
+/*   Updated: 2024/07/01 15:37:38 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static void	wait_threads(pthread_t *threads, t_common *common)
 
 	while (1)
 	{
-		usleep(1000);
 		pthread_mutex_lock(&(common->lock));
 		if (common->eat_up_count == common->philo_count)
 			common->simulation_run_flag = false;
 		pthread_mutex_unlock(&(common->lock));
 		if (is_simulate_end(common))
 			break ;
+		usleep(1000);
 	}
 	i = 0;
 	while (i < common->created_threads_count)

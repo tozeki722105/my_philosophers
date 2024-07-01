@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulate_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/29 20:57:37 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/07/01 16:13:30 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
 		return ;
-	if (ms_time > ADJUSTMENT_TIME)
+	if (ms_time >= ADJUSTMENT_TIME * 2)
 	{
 		while (!is_simulate_end(common)
 			&& !is_dead(philo, common))
 		{
-			remained_time = (limit - get_time());
+			remained_time = limit - get_time();
 			if (remained_time <= ADJUSTMENT_TIME)
 				break ;
 			usleep((remained_time / 2) * 1000);
@@ -64,11 +64,11 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	}
 	if (is_simulate_end(common) || is_dead(philo, common))
 		return ;
-	while (get_time() <= limit)
+	while (get_time() < limit)
 		usleep(100);
 }
 
-// static void	print_philo(t_philo *philo)
+// void	print_philo(t_philo *philo)
 // {
 // 	printf("philo_id=%d;\n", philo->id);
 // 	printf("laste_time=%lu;\n", philo->last_eat_time);
