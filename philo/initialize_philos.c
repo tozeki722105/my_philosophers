@@ -6,7 +6,7 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:22:44 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/09 19:02:47 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/07/02 15:06:43 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ bool	initialize_philos(int philo_count, t_common *common, t_fork *forks,
 		philos_cpy[i].id = i + 1;
 		philos_cpy[i].last_eat_time = 0;
 		philos_cpy[i].eat_count = 0;
-		if (i == 0)
+		if (philo_count == 1)
+			philos_cpy[i].right_fork = NULL;
+		else if (i == 0)
 			philos_cpy[i].right_fork = &(forks[philo_count - 1]);
 		else
 			philos_cpy[i].right_fork = &(forks[i - 1]);

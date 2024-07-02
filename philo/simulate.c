@@ -52,7 +52,9 @@ static bool	can_take_fork(t_fork *fork, t_philo *philo)
 }
 
 static bool	can_take_pair_forks(t_philo *philo)
-{	
+{
+	if (!(philo->right_fork && philo->left_fork))
+		return (false);	
 	return (can_take_fork(philo->left_fork, philo)
 		&& can_take_fork(philo->right_fork, philo));
 }
