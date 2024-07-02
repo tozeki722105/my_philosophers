@@ -6,7 +6,7 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:49:10 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/29 20:30:51 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:08:54 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # define NO_COUNT				-1
 # define ERROR					-1
 # define DEFAULT				2
-# define ADJUSTMENT_TIME		5
+# define PUT_DIE_LIMIT			10
+# define PUT_DIE_LIMIT_HALF_US	5000
 # define SUCCESS				0
 # define DIE					"died"
 # define TAKE_FORK				"has taken a fork"

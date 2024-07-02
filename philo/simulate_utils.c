@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulate_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/07/01 16:13:30 by toshi            ###   ########.fr       */
+/*   Updated: 2024/07/02 16:24:41 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,20 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
 		return ;
-	if (ms_time >= ADJUSTMENT_TIME * 2)
+	if (ms_time >= PUT_DIE_LIMIT)
 	{
 		while (!is_simulate_end(common)
 			&& !is_dead(philo, common))
 		{
 			remained_time = limit - get_time();
-			if (remained_time <= ADJUSTMENT_TIME)
+			if (remained_time < PUT_DIE_LIMIT)
 				break ;
-			usleep((remained_time / 2) * 1000);
+			usleep(PUT_DIE_LIMIT_HALF_US);
 		}
 	}
-	if (is_simulate_end(common) || is_dead(philo, common))
-		return ;
-	while (get_time() < limit)
+	while (!is_simulate_end(common)
+		&& !is_dead(philo, common)
+		&& get_time() < limit)
 		usleep(100);
 }
 
