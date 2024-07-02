@@ -6,7 +6,7 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/07/02 16:24:41 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/07/02 16:44:43 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	limit = get_time() + ms_time;
 	if (ms_time == 0)
 		return ;
-	if (ms_time >= PUT_DIE_LIMIT)
+	if (ms_time > PUT_DIE_LIMIT)
 	{
 		while (!is_simulate_end(common)
 			&& !is_dead(philo, common))
 		{
 			remained_time = limit - get_time();
-			if (remained_time < PUT_DIE_LIMIT)
+			if (remained_time <= PUT_DIE_LIMIT)
 				break ;
 			usleep(PUT_DIE_LIMIT_HALF_US);
 		}
