@@ -6,7 +6,7 @@
 /*   By: toshi <toshi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 00:21:47 by toshi             #+#    #+#             */
-/*   Updated: 2024/06/24 04:11:03 by toshi            ###   ########.fr       */
+/*   Updated: 2024/07/03 20:45:46 by toshi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static bool	is_arg_overflow(t_common common, int argc)
 {
-	if (common.philo_count == ERROR
-		|| common.die_time == ERROR
-		|| common.eat_time == ERROR
-		|| common.sleep_time == ERROR
-		|| (argc == 6 && common.must_eat_count == ERROR))
+	if (common.philo_count <= 0
+		|| common.die_time <= 0
+		|| common.eat_time <= 0
+		|| common.sleep_time <= 0
+		|| (argc == 6 && common.must_eat_count <= 0))
 	{
-		put_err("There is an argument for int_overflow");
+		put_err("Contains int_overflow or 0 arguments");
 		return (true);
 	}
 	return (false);
