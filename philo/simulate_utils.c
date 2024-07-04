@@ -6,7 +6,7 @@
 /*   By: tozeki <tozeki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 19:26:04 by toshi             #+#    #+#             */
-/*   Updated: 2024/07/02 16:44:43 by tozeki           ###   ########.fr       */
+/*   Updated: 2024/07/04 15:34:10 by tozeki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	msleep(int ms_time, t_philo *philo, t_common *common)
 	}
 	while (!is_simulate_end(common)
 		&& !is_dead(philo, common)
-		&& get_time() < limit)
+		&& get_time() <= limit)
 		usleep(100);
 }
 
