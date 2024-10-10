@@ -57,7 +57,7 @@ static void	wait_threads(pthread_t *threads, t_common *common)
 		pthread_mutex_unlock(&(common->lock));
 		if (is_simulate_end(common))
 			break ;
-		usleep(1000);
+		usleep(100);
 	}
 	i = 0;
 	while (i < common->created_threads_count)
